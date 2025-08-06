@@ -1,4 +1,4 @@
-![[Pasted image 20250219121610.png]]
+
 * Model : 데이터와 비즈니스 로직을 처리 (DB,서비스,객체)
 * View : 사용자에게 보이는 화면 (UI-HTML,JSP,React)
 * Controller : 사용자의 요청을 받고, 모델과 뷰를 연결 (백엔드(?))
