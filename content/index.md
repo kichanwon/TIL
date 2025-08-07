@@ -9,7 +9,7 @@ title: 콩쥐의 우당탕탕
 
 ## 기술 학습 (TIL)
 
-- [AI](study/AI)
+- [AI](Study/AI)
 
 
 ## 프로젝트
