@@ -268,3 +268,16 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
     overscroll-behavior: none;
   }
 }
+
+
+/* 파일·폴더 이름 줄임표 처리 */
+.explorer-content ul li > a,
+.folder-container div > a,
+.folder-container div > button span {
+  display: inline-block;
+  max-width: 200px; /* 폭 조정 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
