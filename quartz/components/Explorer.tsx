@@ -22,9 +22,6 @@ export interface Options {
   order: OrderEntries[]
 }
 
-// Custom Ordering
-const customOrder = ["Overview", "Fundamentals", "Architectures", "Applications"]
-
 const defaultOptions: Options = {
   folderDefaultState: "collapsed",
   folderClickBehavior: "link",
@@ -33,6 +30,10 @@ const defaultOptions: Options = {
     return node
   },
   sortFn: (a, b) => {
+
+    // Custom Ordering
+    const customOrder = ["Overview", "Fundamentals", "Architectures", "Applications"]
+
     const indexA = customOrder.indexOf(a.displayName)
     const indexB = customOrder.indexOf(b.displayName)
 
