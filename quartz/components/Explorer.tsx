@@ -22,6 +22,9 @@ export interface Options {
   order: OrderEntries[]
 }
 
+// Custom Ordering
+const customOrder = ["Overview", "Fundamentals", "Architectures", "Applications"]
+
 const defaultOptions: Options = {
   folderDefaultState: "collapsed",
   folderClickBehavior: "link",
@@ -30,6 +33,15 @@ const defaultOptions: Options = {
     return node
   },
   sortFn: (a, b) => {
+    const indexA = customOrder.indexOf(a.displayName)
+    const indexB = customOrder.indexOf(b.displayName)
+
+    // 둘 다 customOrder에 있으면 그 순서대로
+    if (indexA !== -1 && indexB !== -1) return indexA - indexB
+    // 하나만 있으면 해당 항목이 먼저
+    if (indexA !== -1) return -1
+    if (indexB !== -1) return 1
+
     // Sort order: folders first, then files. Sort folders and files alphabeticall
     if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
       // numeric: true: Whether numeric collation should be used, such that "1" < "2" < "10"
