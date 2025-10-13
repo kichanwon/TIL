@@ -1,4 +1,3 @@
 ---
-tags:
 draft: true
 ---
