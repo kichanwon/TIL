@@ -1,7 +1,7 @@
 ---
 tags:
   - Git
-draft:
+draft: false
 ---
 ## GitHub 대용량 파일 Push 오류
 >GitHub은 저장소에 허용되는 파일 크기를 제한

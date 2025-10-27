@@ -1,144 +1,66 @@
 ---
-draft: true
+draft: false
+---
+배치 사이즈는 옵티마이저와 연관이 깊다.
+
+- [[ON LARGE-BATCH TRAINING FOR DEEP LEARNING]]
+- [참고1](https://davidlds.tistory.com/33)
+- [참고2](https://bruders.tistory.com/79)
+- [참고3](https://honeyjamtech.tistory.com/43)
+
 ---
 
-## ⚙️ ② Batch Size 증가의 의미, 동작, 효과
+### 조절 가능한 변수 요약
 
-|항목|내용|
-|---|---|
-|**개요**|학습 시 한 번에 처리하는 샘플 수를 늘려 **계산 효율** 향상 및 **gradient 분산 안정화** 유도|
-|**필요성**|GPU 병렬 처리 최적화, I/O 오버헤드 감소, 학습 속도 향상 목적|
-|**동작 원리**|`N`개 샘플의 평균 gradient를 구해 가중치 갱신 → batch size 증가 시 gradient의 **분산(variance)** 감소 → 안정된 방향으로 수렴|
-|**기대효과**|학습 안정성↑, GPU 효율↑, 학습 시간 단축|
-|**단점**|메모리 사용량 증가, local minima 탐색 능력 저하, 일반화 성능 하락 가능|
-|**보완 방법**|batch 증가 시 `LR ∝ batch_size` (Linear Scaling Rule) 적용, 작은 warm-up 단계 추가|
-
-**장단점 요약**
-
-|구분|장점|단점|
-|---|---|---|
-|**Batch Size ↑**|안정적 gradient, 빠른 수렴, GPU 효율 증가|일반화 능력↓, 메모리 한계, fine-tuning 어려움|
-|**Batch Size ↓**|일반화↑, 메모리 효율|수렴 불안정, 학습 속도 느림|
-
-[Batch/Epoch/Iteration](https://bruders.tistory.com/79)
-[Batch & LearningRate](https://davidlds.tistory.com/33)
-[Large Batch vs Less LearningRate](https://honeyjamtech.tistory.com/43)
-
-
+| 항목                   | 영향 대상            | 값 증가 시 효과                 | 값 감소 시 효과                |
+| -------------------- | ---------------- | ------------------------- | ------------------------ |
+| BATCH_SIZE           | GPU 효율, 학습 안정성   | GPU 효율 증가, 수렴 안정화, 일반화 저하 | 메모리 절약, 일반화 향상, 학습 속도 저하 |
+| ACCUMULATION_STEPS   | 메모리 사용량, 업데이트 주기 | 메모리 절약, 큰 배치 효과 구현        | 업데이트 횟수 증가, 학습 노이즈 증가    |
+| NUM_EPOCHS           | 학습량              | 학습 완성도 증가, 과적합 위험 증가      | 과소학습 위험 증가               |
+| LEARNING_RATE        | 수렴 속도, 안정성       | 빠른 수렴, 발산 위험 증가           | 안정적이나 느린 학습              |
+| MOMENTUM             | 수렴 안정성           | 수렴 가속, overshoot 위험 증가    | 느린 수렴, 진동 위험 증가          |
+| TEST_SIZE / VAL_SIZE | 데이터 평가 신뢰성       | 평가 신뢰도 증가, 학습데이터 감소       | 평가 불안정, 학습 효율 증가         |
+| IMAGE_SIZE           | 입력 정보량, 계산량      | 정확도 상승, 연산량 증가            | 속도 향상, 정보 손실 가능          |
 
 ---
+
+1. Batch Size  
+    큰 값일수록 GPU 효율이 높고 gradient 분산이 감소하여 안정적이지만, 일반화 성능이 떨어질 수 있다.  
+    작은 값은 gradient 노이즈가 커지지만 다양한 경로를 탐색해 일반화에는 유리하다.
+    
+2. Gradient Accumulation  
+    실제 메모리 한계를 넘지 않고 큰 배치 효과를 얻기 위한 방법이다.  
+    accumulation step이 커질수록 메모리는 절약되지만 업데이트 주기가 길어져 학습이 느려질 수 있다.
+    
+3. Epoch 수  
+    반복 학습 횟수로, 많을수록 정확도는 오르지만 과적합 위험이 커진다.  
+    너무 적으면 충분히 학습되지 못한다.
+    
+4. Learning Rate  
+    가중치 갱신 크기를 결정한다.  
+    너무 크면 발산, 너무 작으면 느린 수렴이 발생한다.  
+    큰 배치를 사용할 때는 learning rate를 비례해 늘려주는 것이 일반적이다.
+    
+5. Momentum  
+    이전 gradient 방향을 일정 비율로 반영해 진동을 줄이고 수렴을 빠르게 만든다.  
+    값이 너무 크면 overshoot이 발생하고, 너무 작으면 학습이 느려진다.
+    
+6. 데이터 분할 비율  
+    검증 및 테스트 비율이 높을수록 평가 신뢰도는 올라가지만 학습 데이터가 줄어든다.  
+    일반적으로 train:val:test 비율은 0.7:0.2:0.1이 적당하다.
+    
+7. Image Size  
+    큰 입력 크기는 더 많은 특징을 학습할 수 있지만 연산량이 증가한다.  
+    작은 크기는 속도는 빠르지만 세밀한 정보가 손실될 수 있다.
+    
+
 ---
 
+### 요약 결론
 
-```python
-ACCUMULATION_STEPS = 1 (누적 없음)
-
-BATCH_SIZE | GPU 사용 | 정확도
-128        | 441.9    | 0.6340  ✅ 최고!
-512        | 661.9    | 0.5960  ❌ 하락
-```
-
-### 이유 1: Generalization Gap (일반화 격차)
-
-**큰 배치의 문제:**
-```
-작은 배치 (128):
-샘플 다양성: ⬜⬛⬜⬛⬜⬛⬜⬛  (다양함)
-→ Gradient 노이즈 많음
-→ Loss landscape의 다양한 경로 탐색
-→ 일반화 성능 ↑
-
-큰 배치 (512):
-샘플 다양성: ⬜⬜⬜⬜⬜⬜⬜⬜  (비슷함)
-→ Gradient 노이즈 적음
-→ Loss landscape의 특정 경로만 탐색
-→ Sharp minimum에 빠짐
-→ 일반화 성능 ↓
-```
-
-### 이유 2: Sharp vs Flat Minima
-```
-Loss Landscape:
-
-작은 배치 (Noisy Gradient):
-     ╱╲  sharp
-    ╱  ╲       → 여기 빠지면 과적합
-───────────
-
-큰 배치 (Smooth Gradient):
-  ╱────╲  flat
- ╱      ╲     → 여기 가면 일반화 좋음
-───────────
-
-문제: 큰 배치는 sharp minimum에 빠지기 쉬움!
-```
-
-### 이유 3: 업데이트 횟수 차이
-
-python
-
-```python
-# 전체 데이터 18,000개 가정
-
-BATCH_SIZE = 128:
-에포크당 업데이트 횟수 = 18,000 / 128 = 140회
-→ 모델이 140번 학습 기회
-
-BATCH_SIZE = 512:
-에포크당 업데이트 횟수 = 18,000 / 512 = 35회
-→ 모델이 35번 학습 기회
-
-→ 4배 적은 업데이트! 학습 부족 가능
-```
-
-### 시각화
-
-```
-Epoch 1 동안의 모델 업데이트:
-
-BATCH=128 (140 steps):
-W₀ → W₁ → W₂ → ... → W₁₄₀  (세밀하게 조정)
-
-BATCH=512 (35 steps):
-W₀ ━━━━━━━━━━━━━━━━━━━━━━→ W₃₅  (성큼성큼 이동)
-
-→ 작은 배치가 더 세밀하게 최적점 탐색!
-```
-
-### 해결 방법
-
-**1. 학습률 스케일링:**
-
-python
-
-```python
-# Linear Scaling Rule
-BATCH_SIZE = 512
-LEARNING_RATE = 0.001 * (512 / 128)  # 4배 증가
-```
-
-**2. Warmup:**
-
-python
-
-```python
-# 초기에 학습률을 점진적으로 증가
-scheduler = torch.optim.lr_scheduler.LinearLR(
-    optimizer,
-    start_factor=0.1,
-    total_iters=5  # 5 에포크 동안 warmup
-)
-```
-
-**3. 에포크 증가:**
-
-python
-
-```python
-# 큰 배치는 더 많은 에포크 필요
-BATCH_SIZE = 512
-NUM_EPOCHS = 10  # 3 → 10으로 증가
-```
-
-
-
+| 최적화 목표   | 조정 우선순위                                   | 추천 전략        |
+| -------- | ----------------------------------------- | ------------ |
+| 정확도 향상   | 작은 Batch, 적절한 Learning Rate, Epoch 증가     | 노이즈 기반 탐색 유리 |
+| 학습 속도 향상 | 큰 Batch, Learning Rate 증가, Momentum 증가    | GPU 병렬화 극대화  |
+| 메모리 절약   | 작은 Batch, Accumulation 증가                 | 효율적 대안       |
+| 일반화 강화   | 작은 Batch, Weight Decay, Data Augmentation | 과적합 방지       |
