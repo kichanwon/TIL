@@ -17,8 +17,18 @@ title: "ON LARGE-BATCH TRAINING FOR DEEP LEARNING : GENERALIZATION GAP AND SHARP
 	Large Batch, Generalization Gap, Sharp Minima, Deep Learning Optimization
 
 ---
+ABSTRACT
+1 INTRODUCTION
+1.1 NOTATION
+2 DRAWBACKS OF LARGE-BATCH METHODS
+2.1 OUR MAIN OBSERVATION
+2.2 NUMERICAL EXPERIMENTS
+2.2.1 PARAMETRIC PLOTS
+2.2.2 SHARPNESS OF MINIMA
+3 SUCCESS OF SMALL-BATCH METHODS
+4 DISCUSSION AND CONCLUSION
 
-### 연구 배경 (왜 이 연구를 했는가?)
+### 연구 배경
 - 대규모 데이터와 병렬 학습이 가능해지며 배치 크기(batch size) 를 크게 설정하는 경향이 증가.
 - 그러나 실험적으로 큰 배치 크기일수록 테스트 정확도가 떨어지는 현상이 관찰됨.
 - 기존 연구는 이 현상의 원인과 학습 동역학에 대한 명확한 설명 부족.
@@ -26,14 +36,14 @@ title: "ON LARGE-BATCH TRAINING FOR DEEP LEARNING : GENERALIZATION GAP AND SHARP
 
 ---
 
-### 주요 아이디어 (무엇을 제안했는가?)
+### 주요 아이디어
 - 핵심 개념 또는 모델 구조 요약
 - 새로운 알고리즘/이론의 포인트
 - Figure·Equation 중심으로 핵심 직관 정리
 
 ---
 
-### 방법론 (어떻게 구현했는가?)
+### 방법론
 - 데이터셋 / 실험 환경
 - 모델 구조, 학습 설정, 하이퍼파라미터
 - 비교 대상 (Baseline)

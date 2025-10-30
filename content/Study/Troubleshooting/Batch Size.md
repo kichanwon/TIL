@@ -3,7 +3,7 @@ draft: false
 ---
 배치 사이즈는 옵티마이저와 연관이 깊다.
 
-- [[ON LARGE-BATCH TRAINING FOR DEEP LEARNING]]
+- [[content/Study/PaperReview/ON LARGE-BATCH TRAINING FOR DEEP LEARNING]]
 - [참고1](https://davidlds.tistory.com/33)
 - [참고2](https://bruders.tistory.com/79)
 - [참고3](https://honeyjamtech.tistory.com/43)
@@ -56,11 +56,117 @@ draft: false
 
 ---
 
-### 요약 결론
+- batch
+    - 학습에 사용하는 데이터 묶음 단위
+    - batch_size로 지정
+    - 한 batch를 모델에 넣어 forward, backward 수행
+- step
+    - 한 batch 학습이 끝나고 optimizer가 weight를 업데이트하는 단위
+    - 1 batch 학습 후 1 step 증가
+    - 전체 step 수 = (train 데이터 개수 / batch_size) × epoch 수
+- optimizer
+    - gradient를 이용해 모델의 weight를 실제로 수정하는 알고리즘
+    - 각 step마다 loss를 줄이는 방향으로 weight 갱신
+    - 예시: SGD, Adam, RMSprop
 
-| 최적화 목표   | 조정 우선순위                                   | 추천 전략        |
-| -------- | ----------------------------------------- | ------------ |
-| 정확도 향상   | 작은 Batch, 적절한 Learning Rate, Epoch 증가     | 노이즈 기반 탐색 유리 |
-| 학습 속도 향상 | 큰 Batch, Learning Rate 증가, Momentum 증가    | GPU 병렬화 극대화  |
-| 메모리 절약   | 작은 Batch, Accumulation 증가                 | 효율적 대안       |
-| 일반화 강화   | 작은 Batch, Weight Decay, Data Augmentation | 과적합 방지       |
+---
+
+### 구체적인 흐름 (PyTorch 기준)
+
+~~~python
+for epoch in range(num_epochs):
+	for batch_idx, (inputs, labels) in enumerate(train_loader):
+		outputs = model(inputs)
+		loss = criterion(outputs, labels)
+		optimizer.zero_grad()
+		loss.backward()
+		optimizer.step()
+~~~
+1. batch 데이터를 불러옴
+2. forward pass로 예측 계산
+3. loss 계산
+4. gradient 초기화
+5. backward로 gradient 계산
+6. optimizer가 gradient를 이용해 weight를 업데이트
+7. 한 batch 학습이 끝나면 step 1 증가
+
+---
+
+### 예시
+MNIST 데이터 60,000장  
+batch_size = 64  
+epoch = 5
+- 한 epoch당 batch 수 = 60,000 ÷ 64 ≈ 938
+- 총 step 수 = 938 × 5 = 4,690
+- 4,690번 optimizer가 weight 업데이트 수행
+
+---
+
+### 심화 학습 (gradient accumulation)
+GPU 메모리가 부족하거나 batch 크기를 크게 만들고 싶을 때 사용
+~~~python
+for i, (inputs, labels) in enumerate(loader):
+    loss = model(inputs, labels) / accum_steps
+    loss.backward()             
+    if (i+1) % accum_steps == 0:
+        optimizer.step()        
+        optimizer.zero_grad()
+~~~
+- 여러 batch에서 gradient를 누적한 뒤 optimizer를 한 번만 호출
+- n개의 batch → 1 step으로 처리
+- 효과적으로 batch_size를 n배 늘린 효과
+
+---
+
+### 요약 핵심 포인트
+- batch: 데이터 묶음 단위
+- step: batch 1회 학습 후 weight 업데이트 단위
+- optimizer: gradient를 이용해 weight 수정
+- 1 batch = 1 step = 1 optimizer update
+- gradient accumulation 시 여러 batch = 1 step
+- step 수가 많을수록 모델은 더 자주 weight를 갱신하며 학습
+- TensorBoard의 x축은 보통 step 수를 의미함
+
+---
+# batch
+1. Batch Size 정의
+    - 한 번의 학습 단계에서 모델이 동시에 처리하는 데이터 개수
+    - 예: batch size = 64 → 한 번 weight를 업데이트할 때 64개의 이미지(데이터)를 보고 평균적으로 방향을 결정함
+2. Batch Size와 Step 관계
+    - steps per epoch = 전체 데이터 수 ÷ batch size
+    - batch가 작을수록 step 수가 많아지고, 클수록 step 수가 줄어듦
+3. Batch Size에 따른 특징
+    - 작은 batch
+        - step 수 많음 → 자주 weight 업데이트
+        -  큼 → 방향이 자주 변함
+        - 다양한 방향 탐색 → flat minima로 수렴 가능 → 일반화 성능 좋음
+        - loss 곡선 요동 큼 → 학습 안정성 낮음
+        - GPU 효율 낮음 → 학습 속도 느림
+        - learning rate 작게 설정해야 함
+    - 큰 batch
+        - step 수 적음 → weight 업데이트 드묾
+        - gradient noise 작음 → 방향 일정
+        - 빠르고 안정적 수렴 → sharp minima로 수렴 가능 → 일반화 성능 낮음
+        - loss 곡선 부드러움 → 학습 안정성 높음
+        - GPU 효율 높음 → 학습 속도 빠름
+        - learning rate 크게 설정 가능
+4. Gradient Noise 영향
+    - 작은 batch는 데이터 일부만 보고 gradient 계산 → gradient에 노이즈 포함
+    - gradient noise는 탐색성을 높여 flat minima로 이동하게 함
+    - 큰 batch는 gradient 평균이 정확 → 수렴은 빠르지만 탐색성 낮음
+5. 학습 안정성 의미
+    - loss, gradient, weight 변화가 요동치지 않고 꾸준히 감소하는 성질
+    - 안정성이 높을수록
+        - 손실 감소가 예측 가능함
+        - gradient 폭주나 소멸이 줄어듦
+        - 과적합이나 불안정 수렴 방지
+        - 하이퍼파라미터 튜닝이 쉬움
+        - 학습 효율이 높아짐
+6. Step 수의 영향
+    - step이 많을수록 weight 업데이트가 자주 일어나 세밀한 학습이 가능
+    - step이 적을수록 업데이트가 적어 안정적이지만 탐색성이 낮음
+    - step 수는 학습 속도, 안정성, 일반화 사이의 균형을 결정함
+7. 핵심 요약
+    - 작은 batch: step 많음, gradient noise 큼, 일반화 성능 좋음, 학습 느림
+    - 큰 batch: step 적음, gradient noise 작음, 학습 안정성 높음, 일반화 약함
+    - batch size는 일반화와 안정성 사이의 균형을 결정하는 요소
