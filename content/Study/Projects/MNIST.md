@@ -1,6 +1,6 @@
 ---
 tags:
-draft: true
+draft: false
 ---
 ## 목적
 - MNIST 데이터셋을 사용하여 CNN의 학습 설정(batch size, 모델 구조, learning rate)에 따른 성능 변화를 분석
