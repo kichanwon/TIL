@@ -50,8 +50,8 @@ draft: false
 | 64 (주황)    | 0.944          | **0.9895**          | 0.179      | **0.0375**      | 1.157 min     |
 | 128 (회색)   | 0.934          | 0.9843              | 0.212      | 0.0523          | 1.104 min     |
 | 1024 (녹색)  | 0.936          | 0.9832              | 0.217      | 0.0574          | 1.251 min     |
-![Attachment/LB_StableLearning](/Attachment/LB_StableLearning.png)
-![Attachment/SB_Generalization](/Attachment/SB_Generalization.png)
+![Attachment/LB_StableLearning](content/Attachment/LB_StableLearning.png)
+![Attachment/SB_Generalization](private/Attachment/SB_Generalization.png)
 - **Small Batch (주황)**
     - 손실 곡선의 진폭이 크고 진동이 많으며, 다양한 방향으로 탐색하면서 빠르게 손실이 감소함
     - gradient noise가 커서 local minima를 탈출하기 쉬움
@@ -115,8 +115,8 @@ draft: false
 
 ### **실험 상세**
 
-![Attachment/ReLu-Sigmoid_Generalization](/Attachment/ReLu-Sigmoid_Generalization.png)
-![Attachment/ReLu-Sigmoid_lrstable](/Attachment/ReLu-Sigmoid_lrstable.png)
+![Attachment/ReLu-Sigmoid_Generalization](content/Attachment/ReLu-Sigmoid_Generalization.png)
+![Attachment/ReLu-Sigmoid_lrstable](content/Attachment/ReLu-Sigmoid_lrstable.png)
 
 
 ### **결론**
@@ -152,7 +152,7 @@ draft: false
 
 ### **실험 상세**
 
-![[Dropout (2).png]][[Dropout (3).png]]![[Dropout (4).png]]![[Dropout (1).png]]
+![[content/Attachment/Dropout (2).png]][[content/Attachment/Dropout (3).png]]![[content/Attachment/Dropout (4).png]]![[content/Attachment/Dropout (1).png]]
 ### **결론**
 
 ---
@@ -185,7 +185,7 @@ draft: false
 ### **결과 요약**
 
 ### **실험 상세**
-![[OverlappingPooling (1).png]]![[OverlappingPooling (2).png]]![[OverlappingPooling (3).png]]![[OverlappingPooling (4).png]]
+![[content/Attachment/OverlappingPooling (1).png]]![[content/Attachment/OverlappingPooling (2).png]]![[content/Attachment/OverlappingPooling (3).png]]![[content/Attachment/OverlappingPooling (4).png]]
 
 ### **결론**
 
