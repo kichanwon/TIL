@@ -114,6 +114,9 @@ draft: false
 
 ### **실험 상세**
 
+![[ReLu-Sigmoid_Generalization.png]]![[ReLu-Sigmoid_lrstable.png]]
+
+
 ### **결론**
 
 ---
@@ -147,6 +150,7 @@ draft: false
 
 ### **실험 상세**
 
+![[Dropout (2).png]][[Dropout (3).png]]![[Dropout (4).png]]![[Dropout (1).png]]
 ### **결론**
 
 ---
@@ -179,6 +183,7 @@ draft: false
 ### **결과 요약**
 
 ### **실험 상세**
+![[OverlappingPooling (1).png]]![[OverlappingPooling (2).png]]![[OverlappingPooling (3).png]]![[OverlappingPooling (4).png]]
 
 ### **결론**
 
@@ -248,5 +253,3 @@ draft: false
 ### **실험 상세**
 
 ### **결론**
-
----
