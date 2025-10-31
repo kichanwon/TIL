@@ -1,5 +1,7 @@
 ---
 title: 콩쥐의 우당탕탕
+description: kichanwon 건국대학교 글로컬 캠퍼스 인공지능 AI 딥러닝 프로젝트
+author: '"원기찬", "kichanwon"'
 ---
 # 👋 Welcome
 
