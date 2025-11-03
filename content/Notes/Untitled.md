@@ -1,0 +1,150 @@
+---
+draft: true
+---
+# Ⅰ. 신경망 기본 개념
+
+|개념|정의|예시|역할|
+|---|---|---|---|
+|**신경망(Neural Network)**|입력을 받아 출력을 만드는 다층 구조|CNN, MLP, RNN 등|특징 추출 → 예측|
+|**레이어(Layer)**|입력을 받아 출력을 만드는 계산 단위|Conv2d, Linear 등|데이터를 단계적으로 변환|
+|**채널(Channel)**|이미지나 feature map의 정보 축|RGB(3), Conv 출력(64 등)|서로 다른 특징 표현|
+
+---
+
+# Ⅱ. CNN 구조 및 학습 흐름
+
+일반적인 구조: `Conv → BN → ReLU → Pool → FC → Softmax`
+
+|단계|기능|출력 예시 (CIFAR-10: 3×32×32 입력)|
+|---|---|---|
+|Conv|지역 특징 추출|(B, 32, 32, 32)|
+|BN|분포 정규화, 안정화|(B, 32, 32, 32)|
+|ReLU|비선형성, gradient 소실 방지|(B, 32, 32, 32)|
+|Pool|공간 크기 축소|(B, 32, 16, 16)|
+|FC|특징 요약 및 분류|(B, 10)|
+
+---
+
+# Ⅲ. 레이어 순서
+
+|질문|요점|
+|---|---|
+|**레이어 순서는 상관없나?**|순서가 매우 중요하다. 보통 `Conv → BN → ReLU → Pool` 순서를 사용한다.|
+|**이유**|Conv로 특징을 추출하고, ReLU로 비선형성을 추가한 뒤 Pool로 요약한다. 순서를 바꾸면 정보 손실 발생.|
+
+---
+
+# Ⅳ. 정규화 관련
+
+## 1. Input Normalization vs Batch Normalization
+
+|구분|Input Normalization|Batch Normalization|
+|---|---|---|
+|시점|데이터 전처리 단계|학습 중 (모델 내부)|
+|기준|전체 데이터셋 평균/표준편차|현재 batch의 평균/표준편차|
+|코드 예시|`transforms.Normalize(mean, std)`|`nn.BatchNorm2d()`|
+|목적|입력 데이터의 스케일 맞추기|학습 안정화, 수렴 가속, regularization 효과|
+|관계|BatchNorm이 있어도 Input Normalization은 여전히 필요||
+
+---
+
+## 2. BatchNorm의 역할
+
+|효과|설명|
+|---|---|
+|학습 안정화|활성값 분포를 일정하게 유지|
+|수렴 가속|Gradient 폭주/소실 방지|
+|Regularization 효과|배치마다 통계 변동이 있어 Dropout 유사 효과 발생|
+
+---
+
+# Ⅴ. ReLU 관련
+
+|질문|핵심 정리|
+|---|---|
+|**ReLU는 입력 정규화 필요 없어?**|수학적으로는 필요 없음 (입력 분포에 덜 민감) 그러나 전체 모델 학습 안정성을 위해 Input Normalization은 필요하다.|
+|**이유**|ReLU는 양수 영역에서 gradient가 항상 1이므로, 입력 분포 변화에 대한 민감도가 낮다.|
+|**요약**|ReLU 자체는 정규화가 없어도 작동하지만, 모델 전체는 입력 정규화를 해야 안정적으로 학습된다.|
+
+---
+
+# Ⅵ. LRN(Local Response Normalization)
+
+|항목|내용|
+|---|---|
+|**등장 배경**|ReLU로 인해 일부 채널의 활성값이 과도하게 커짐|
+|**핵심 아이디어**|“채널 간 경쟁”을 통해 과도하게 큰 활성값을 억제|
+|**수식**|bx,yi=ax,yi/(k+α∑j(ax,yj)2)βb_{x,y}^i = a_{x,y}^i / (k + \alpha \sum_j (a_{x,y}^j)^2)^{\beta}bx,yi​=ax,yi​/(k+α∑j​(ax,yj​)2)β|
+|**활성값의 상대적 균형 의미**|특정 채널이 너무 크면, 주변 채널들의 제곱합으로 나누어 상대적으로 억제한다.|
+|**효과**|특정 채널의 독주를 방지하고, 채널 간 균형 유지|
+|**현재 사용 여부**|거의 사용하지 않음 (BatchNorm이 대체함)|
+
+---
+
+# Ⅶ. LRN vs BatchNorm
+
+|항목|LRN|BatchNorm|
+|---|---|---|
+|등장 시기|2012 (AlexNet)|2015 (BN 논문)|
+|정규화 기준|같은 위치의 채널 간 경쟁|한 채널 내에서 batch 전체 평균/표준편차|
+|학습 파라미터|없음|있음 (γ, β)|
+|목적|ReLU의 큰 활성값 억제|분포 안정화, 학습 가속, regularization|
+|본질|생물학적 아이디어 (local inhibition)|통계적 정규화|
+|현재 사용|거의 없음|사실상 표준|
+
+요약:  
+LRN은 ReLU의 큰 출력을 임시로 억제한 기법이고,  
+BatchNorm은 분포 자체를 안정화시켜 문제를 근본적으로 해결했다.
+
+---
+
+# Ⅷ. Convolution & Pooling 파라미터
+
+## 1. 공통 개념
+
+|속성|의미|역할|
+|---|---|---|
+|**Kernel Size**|한 번에 보는 영역|특징의 시야 (필터 크기)|
+|**Stride**|필터 이동 간격|출력 크기 조절|
+|**Padding**|입력 주변에 0을 채움|크기 유지, 경계 정보 보존|
+
+Conv와 Pooling에서 파라미터의 의미는 같지만,  
+Conv는 특징 학습용, Pooling은 크기 축소(요약)용이다.
+
+---
+
+## 2. Pooling vs Stride Conv
+
+|항목|Pooling|Stride Conv|
+|---|---|---|
+|학습 가능 여부|학습 불가능|학습 가능|
+|역할|정보 요약, 크기 축소|다운샘플링 + 학습|
+|현대 CNN 추세|사용 감소|stride=2 Conv로 대체|
+
+즉, 최근 모델(ResNet, EfficientNet 등)은  
+MaxPool 대신 `Conv(kernel=3, stride=2, padding=1)`을 사용한다.
+
+---
+
+# Ⅸ. 개념 요약
+
+|개념|핵심 요약|
+|---|---|
+|Input Normalization|입력 데이터를 미리 정규화 (전처리)|
+|Batch Normalization|학습 중 내부 feature 정규화|
+|ReLU|입력 분포에 덜 민감하지만 모델 전체 안정화를 위해 입력 정규화 필요|
+|LRN|ReLU 출력의 상대적 크기 억제 (채널 간 경쟁)|
+|BN vs LRN|같은 문제(불균형)를 다르게 해결, BN이 현대 표준|
+|Conv vs Pool|Conv는 학습용, Pool은 요약용. Pool 대신 stride Conv 가능|
+|순서|Conv → BN → ReLU → Pool 순으로 구성하는 것이 일반적|
+
+---
+
+# 전체 핵심 문장
+
+ReLU는 입력 정규화에 덜 민감하지만,  
+모델 전체의 안정적 학습을 위해 입력 정규화는 여전히 필요하다.  
+LRN은 ReLU의 큰 출력을 억제하기 위한 초기 방식이며,  
+BatchNorm은 그 문제를 통계적으로 해결한 현대적 방법이다.  
+CNN의 기본 순서는 Conv → BN → ReLU → Pool이고,  
+최근에는 Pool 대신 stride=2 Convolution이 주로 사용된다.
