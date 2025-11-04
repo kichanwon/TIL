@@ -66,7 +66,7 @@ export default ((opts?: Partial<Options>) => {
                 data-for={tocEntry.slug}
                 title={tocEntry.text} // 마우스 올리면 전체 제목 표시
               >
-                {tocEntry.text.length > 30 ? tocEntry.text.slice(0, 30) + "..." : tocEntry.text}
+                {tocEntry.text.length > 20 ? tocEntry.text.slice(0, 20) + "..." : tocEntry.text}
               </a>
             </li>
           ))}
@@ -95,7 +95,7 @@ export default ((opts?: Partial<Options>) => {
                 data-for={tocEntry.slug}
                 title={tocEntry.text} // 마우스 올리면 전체 제목 표시
               >
-                {tocEntry.text.length > 30 ? tocEntry.text.slice(0, 30) + "..." : tocEntry.text}
+                {tocEntry.text.length > 20 ? tocEntry.text.slice(0, 20) + "..." : tocEntry.text}
               </a>
             </li>
           ))}
