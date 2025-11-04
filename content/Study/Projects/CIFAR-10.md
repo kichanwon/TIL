@@ -31,11 +31,10 @@ _데이터 분할 및 전처리_
 - FC 블록: Flatten → Linear(4096→128) → ActivationFn\[ReLU, Sigmoid, Tanh] → Dropout(0.5) →Linear(128→10)
 - 출력:(B, 10), softmax는 \`CrossEntropyLoss\`에서 처리
 ### **실험 내용**
-1. ![cifar-10_activation_step.png](/static/images/cifar-10_activation_step.png)
-2. ![[/static/images/cifar-10_activation_step.png]]
-3. ![[cifar-10_activation_step.png]]
-4. ![[cifar-10_acc.png]]
-5. ![[cifar-10_activation_relative.png]]
+![[/static/images/cifar-10_activation_step.png]]
+![[cifar-10_activation_step.png]]
+![[/static/images/cifar-10_activation_relative.png]]![[cifar-10_activation_relative.png]]
+![[/static/images/cifar-10_acc.png]]![[cifar-10_acc.png]]
 
 ### **실험 상세**
 
