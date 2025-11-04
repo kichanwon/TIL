@@ -34,6 +34,8 @@ _데이터 분할 및 전처리_
 1. ![cifar-10_activation_step.png](/static/images/cifar-10_activation_step.png)
 2. ![[/static/images/cifar-10_activation_step.png]]
 3. ![[cifar-10_activation_step.png]]
+4. ![[cifar-10_acc.png]]
+5. ![[cifar-10_activation_relative.png]]
 
 ### **실험 상세**
 
