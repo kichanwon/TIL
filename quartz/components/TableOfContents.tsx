@@ -61,8 +61,12 @@ export default ((opts?: Partial<Options>) => {
         >
           {fileData.toc.map((tocEntry) => (
             <li key={tocEntry.slug} class={`depth-${tocEntry.depth}`}>
-              <a href={`#${tocEntry.slug}`} data-for={tocEntry.slug}>
-                {tocEntry.text}
+              <a
+                href={`#${tocEntry.slug}`}
+                data-for={tocEntry.slug}
+                title={tocEntry.text} // 마우스 올리면 전체 제목 표시
+              >
+                {tocEntry.text.length > 12 ? tocEntry.text.slice(0, 12) + "..." : tocEntry.text}
               </a>
             </li>
           ))}
@@ -86,8 +90,12 @@ export default ((opts?: Partial<Options>) => {
         <ul>
           {fileData.toc.map((tocEntry) => (
             <li key={tocEntry.slug} class={`depth-${tocEntry.depth}`}>
-              <a href={`#${tocEntry.slug}`} data-for={tocEntry.slug}>
-                {tocEntry.text}
+              <a
+                href={`#${tocEntry.slug}`}
+                data-for={tocEntry.slug}
+                title={tocEntry.text} // 마우스 올리면 전체 제목 표시
+              >
+                {tocEntry.text.length > 12 ? tocEntry.text.slice(0, 12) + "..." : tocEntry.text}
               </a>
             </li>
           ))}
