@@ -110,7 +110,5 @@ title: "ImageNet Classification with Deep Convolutional\rNeural Networks"
 - 다시 찾아볼 개념 (논문 내 용어·참고 문헌 등)
 - 추가 참고할 논문
 
-**ReLU:**
-	일부 뉴런이 영구적으로 비활성화되는 **dying ReLU 문제**가 존재
-**LRN:**
-	당시에는 Top-1 약 1.4%, Top-5 약 1.2% 향상을 보고했으나, 이후 연구에서 **Batch Normalization**으로 대체되며 **효과가 제한적**임이 밝혀짐.
+**ReLU:** 일부 뉴런이 영구적으로 비활성화되는 **dying ReLU 문제**가 존재
+**LRN:** 당시에는 Top-1 약 1.4%, Top-5 약 1.2% 향상을 보고했으나, 이후 연구에서 **Batch Normalization**으로 대체되며 **효과가 제한적**임이 밝혀짐.
