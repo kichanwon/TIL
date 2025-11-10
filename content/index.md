@@ -9,10 +9,7 @@ author: '"원기찬", "kichanwon"'
 
 ---
 
-## 🧠 기술 학습 (Concepts / TIL)
->
-
-📂 주요 섹션  
+## 📂 기술 학습 (Concepts)
 - [[Git]]
 - [[Network]]
 - [[Pytorch]]
@@ -20,7 +17,7 @@ author: '"원기찬", "kichanwon"'
 ---
 
 ## 📚 논문 리뷰 (Paper Reviews)
->
+>[[PaperReview|🧭 \Paper_Index]]
 - [[content/Study/PaperReview/ON LARGE-BATCH TRAINING FOR DEEP LEARNING|ON LARGE-BATCH TRAINING FOR DEEP LEARNING]]
 - [[AlexNet_ImageNet Classification with Deep Convolutional Neural Networks]]
 - [[ResNet_Deep Residual Learning for Image Recognition]]
@@ -28,17 +25,13 @@ author: '"원기찬", "kichanwon"'
 ---
 
 ## 🚀 프로젝트 (Projects)
->
+>[[Projects|🧭Projects_Index]]
 - [[MNIST]]
 - [[CIFAR-10]]
 
 ---
 
 ## 🧯 트러블슈팅 (Troubleshooting)
->
+- [[Troubleshooting|🧭Troubleshooting_Index]]
 
 ---
-
-## 🧭 전체 인덱스
-> 
-
