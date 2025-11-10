@@ -5,9 +5,6 @@ draft: false
 title: "ImageNet Classification with Deep Convolutional\rNeural Networks"
 ---
 - [ImageNet Classification with Deep Convolutional Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)
-
-- [참고](https://jjuon.tistory.com/22)
-
 ### 기본 정보
 - 논문 제목: ImageNet Classification with Deep Convolutional Neural Networks
 - 저자: Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton
@@ -21,11 +18,11 @@ title: "ImageNet Classification with Deep Convolutional\rNeural Networks"
 ### 연구 배경
 - 기존 이미지 분류는 **사람이 설계한 특징(handcrafted features)** 에 의존(예: SIFT, HOG) → 복잡한 패턴 학습 한계
 - 딥러닝은 가능성이 있었지만 **학습 속도·과적합 문제**로 대규모 데이터 적용이 어려움
-- **대규모 데이터(ImageNet) + GPU 병렬 연산 + 개선된 CNN 구조**로 이를 해결하고자 함
+- **대규모 데이터(ImageNet) + GPU 병렬 연산 + 개선된 [[CNN]] 구조**로 이를 해결하고자 함
 ---
 
 ### 주요 아이디어
-![[Pasted image 20251110145241.png]]
+\![[]]
 - 전체 **약 6천만(60M) 개의 파라미터**, **65만(650K)개의 뉴런**을 포함하여, 당시 기준으로 매우 대규모 네트워크 구조
 - 각 층은 점진적으로 **저수준 → 고수준 특징**을 학습
 - 주요 기법:
