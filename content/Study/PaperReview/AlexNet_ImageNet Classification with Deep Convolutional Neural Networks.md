@@ -29,7 +29,7 @@ title: "AlexNet:ImageNet Classification with Deep Convolutional\rNeural Networks
 ---
 
 ### 주요 아이디어
-![[alexnet_architecture.webp]]
+![[/static/images/alexnet_architecture.webp]]
 - 전체 **약 6천만(60M) 개의 파라미터**, **65만(650K)개의 뉴런**을 포함하여, 당시 기준으로 매우 대규모 네트워크 구조
 - 각 층은 점진적으로 **저수준 → 고수준 특징**을 학습
 - 주요 기법:
