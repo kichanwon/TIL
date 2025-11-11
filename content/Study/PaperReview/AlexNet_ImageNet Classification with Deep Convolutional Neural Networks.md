@@ -2,7 +2,7 @@
 tags:
   - paper_review
 draft: false
-title: "AlexNet:ImageNet Classification with Deep Convolutional\rNeural Networks"
+title: "AlexNet: ImageNet Classification with Deep Convolutional\rNeural Networks"
 ---
 **DOI:** 
 

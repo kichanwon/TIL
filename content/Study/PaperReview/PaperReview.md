@@ -1,5 +1,6 @@
 ---
 creation_date: 2025-11-10
+draft: true
 ---
 # 📁 content/Study/PaperReview Index
 ```dataview

@@ -1,5 +1,5 @@
 ---
-draft:
+draft: true
 ---
 
 ### sequential 장단점
