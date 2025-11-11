@@ -1,17 +1,13 @@
----
-draft: false
-title: "ResNet: Deep Residual Learning for Image Recognition"
-tags:
-  - paper_review
----
 
 # 📄 Deep Residual Learning for Image Recognition
-**Authors:** Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun
-**Affiliation:** Microsoft Research, Xi’an Jiaotong University
-**Conference:**  (1449673200000)
-**DOI:** [10.48550/arXiv.1512.03385](https://doi.org/10.48550/arXiv.1512.03385)
+
+**Authors:**   
+**Affiliation:**   
+**Conference:**  (1420038000000)  
+**DOI:** [10.48550/ARXIV.1512.03385](https://doi.org/10.48550/ARXIV.1512.03385)  
 **PDF:** [Official Link]()
 - **Keywords:** 
+
 
 ---
 

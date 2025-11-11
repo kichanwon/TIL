@@ -3,7 +3,7 @@ draft:
 ---
 # Convolutional Neural Network (CNN)
 
-## 1. CNN 개요
+## 1. Overview of CNN
 
 **Convolutional Neural Network (CNN)**  
 시각 데이터(이미지, 영상 등)를 처리하는 데 특화된 인공 신경망 구조.  
@@ -11,8 +11,7 @@ draft:
 
 ---
 
-## 2. CNN의 주요 특징
-
+## 2. Key Features of CNN
 1. **지역 연결 (Local Connectivity)**
     - 각 뉴런은 입력의 일부(국소 영역, receptive field)만 관찰함.
     - 이미지 내의 지역적 패턴(엣지, 질감 등)을 효율적으로 학습.
@@ -45,7 +44,7 @@ draft:
 
 ---
 
-## 3. CNN의 기본 구조
+## 3. Basic Structure of CNN
 - **입력층 (Input Layer)** → 이미지 데이터 (예: 224×224×3)
 - **합성곱층 (Convolution Layer)** → 필터와 합성곱 연산을 통해 특징맵 추출
 - **활성화 함수 (Activation Function)** → 비선형성 도입 (주로 ReLU)
@@ -56,7 +55,7 @@ draft:
 
 ---
 
-## 4. 활성화 함수 (Activation Functions)
+## 4. Activation Functions
 - **ReLU (Rectified Linear Unit)**
     - f(x)=max⁡(0,x)f(x) = \max(0, x)f(x)=max(0,x)
     - Vanishing Gradient 문제 완화
@@ -72,16 +71,16 @@ draft:
 
 ---
 
-## 5. 수용장 (Receptive Field)
+## 5. Receptive Field
 - 특정 층의 한 뉴런이 “볼 수 있는” 입력 이미지 영역.
-- 층이 깊어질수록 수용장이 커짐.
-    - 하위층: 작은 수용장 → 엣지, 색상 등 지역적 패턴 감지
-    - 상위층: 큰 수용장 → 복잡한 전체 객체 인식
-- 설계 시, 탐지하려는 객체의 크기에 맞는 수용장 확보가 중요.
+- 층이 깊어질수록 Receptive Field이 커짐.
+    - 하위층: 작은 Receptive Field → 엣지, 색상 등 지역적 패턴 감지
+    - 상위층: 큰 Receptive Field → 복잡한 전체 객체 인식
+- 설계 시, 탐지하려는 객체의 크기에 맞는 Receptive Field 확보가 중요.
 
 ---
 
-## 6. 과적합 방지 기법 (Regularization Techniques)
+## 6. Regularization Techniques
 - **Dropout**
     - 훈련 중 일부 뉴런을 무작위로 비활성화 → 과적합 방지, 일반화 성능 향상
     - 주로 FC층에 사용
@@ -98,7 +97,7 @@ draft:
 
 ---
 
-## 7. CNN 발전의 역사적 배경
+## 7. Historical Background of CNN Development
 - **ImageNet Large Scale Visual Recognition Challenge (ILSVRC)**
     - 2010년부터 시작된 대규모 이미지 분류 경진대회
     - 1,000개 클래스, 약 120만 장의 훈련 이미지
@@ -109,7 +108,7 @@ draft:
 
 ---
 
-## 8. 대표 CNN 아키텍처
+## 8. Representative CNN Architectures
 - **LeNet-5 (1998)**
     - 최초의 실용적 CNN, 손글씨 숫자 인식(MNIST)
     - 2개 합성곱층 + 풀링층 + FC층 구조
@@ -135,7 +134,7 @@ draft:
 
 ---
 
-## 9. CNN의 주요 응용
+## 9. Major Applications of CNN
 - 이미지 분류 (Image Classification)
 - 객체 탐지 (Object Detection: e.g., R-CNN, YOLO, SSD)
 - 이미지 분할 (Segmentation: e.g., U-Net, Mask R-CNN)

@@ -4,7 +4,7 @@ tags:
 draft: false
 title: "AlexNet: ImageNet Classification with Deep Convolutional\rNeural Networks"
 ---
-**DOI:** 
+**DOI: 10.1145/3065386** 
 
 ### 기본 정보
 - 논문 제목: ImageNet Classification with Deep Convolutional Neural Networks
@@ -22,7 +22,7 @@ title: "AlexNet: ImageNet Classification with Deep Convolutional\rNeural Network
   **학습 불안정성(gradient explosion/vanishing), 적절한 초기화 기법 부재, 컴퓨팅 자원 부족** 등으로 인해 
   실제 대규모 학습에 적용하기 어려웠음
 - **대규모 데이터(ImageNet) + GPU 병렬 연산 + 개선된 [[CNN]] 구조**로 이를 해결하고자 함
-	- 특히 **ImageNet**은 이전 데이터셋(MNIST, CIFAR-10 등)에 비해
+	- 특히 **ImageNet**은 이전 데이터셋([[MNIST]], [[CIFAR-10]] 등)에 비해
 	  규모가 100배 이상 크고, 라벨 품질이 상대적으로 높으며, 
 	  다양한 물체 클래스(1,000종)를 포함해 
 	  모델의 범용적 시각 표현 학습 능력을 평가하기에 적합한 벤치마크였음.
@@ -37,7 +37,7 @@ title: "AlexNet: ImageNet Classification with Deep Convolutional\rNeural Network
 		- 기존 활성화 함수인 `tanh`나 `sigmoid`는 입력이 커질수록 **gradient가 0에 수렴(gradient vanishing)** 하는 문제 존재.  
 		- ReLU는 **음수 입력을 0**으로, **양수는 그대로 통과**시키는 단순한 비선형 함수로, 
 		  계산이 빠르고 gradient 소실이 거의 발생하지 않아 학습 속도와 안정성을 크게 향상.
-		- 특히 GPU 병렬 학습 환경에서 연산 효율이 매우 높아, **대규모 CNN 학습을 실질적으로 가능하게 한 핵심 요인**이 되었음.
+		- 특히 GPU 병렬 학습 환경에서 연산 효율이 매우 높아, **대규모 [[CNN]] 학습을 실질적으로 가능하게 한 핵심 요인**이 되었음.
     - **LRN (Local Response Normalization)**
 		- 생물학적 신경 모델에서 착안한 개념으로, 
 		  한 뉴런의 활성도가 인접 뉴런의 활성도에 의해 억제되는 **‘local competition’** 현상을 모방.
@@ -118,7 +118,7 @@ AlexNet의 성능 개선은 단일 요인이라기보다 여러 혁신이 결합
   - 여전히 연산 자원 의존도가 높고, 학습에 **수일 단위의 GPU 시간**이 필요.  
   - 데이터 증강과 Dropout의 효과가 결합되어, **순수 구조적 개선의 기여도를 분리 평가하기 어려움.**
 #### 요약
-> AlexNet은 단일 기술적 혁신이 아닌,  
+> AlexNet은 단일 기술적 혁신이 아닌,
 > **ReLU, Dropout, GPU 병렬화, 데이터 증강**의 복합적 조합으로 성능을 폭발적으로 향상시켰음.  
 > 다만 일부 기법(LRN 등)은 이후 비효율적임이 밝혀져  
 > 딥러닝 구조 발전의 ‘중간 단계적 시도’로 평가됨.
@@ -141,5 +141,5 @@ AlexNet의 성능 개선은 단일 요인이라기보다 여러 혁신이 결합
 - 추가 참고할 논문
 
 **ReLU:** 일부 뉴런이 영구적으로 비활성화되는 **dying ReLU 문제**가 존재
-Data Augmentation은 항상 좋은가?
+[[Data_Augmentation-TradeOff|Data Augmentation은 항상 좋은가?]]
 정규화와 일반화
