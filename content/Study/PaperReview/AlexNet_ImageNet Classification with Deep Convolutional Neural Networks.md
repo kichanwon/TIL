@@ -2,15 +2,15 @@
 tags:
   - paper_review
 draft: false
-title: "ImageNet Classification with Deep Convolutional\rNeural Networks"
+title: "AlexNet:ImageNet Classification with Deep Convolutional\rNeural Networks"
 ---
-**DOI:** [10.48550/arXiv.1404.5997](https://doi.org/10.48550/arXiv.1404.5997)  
+**DOI:** 
 
 ### 기본 정보
 - 논문 제목: ImageNet Classification with Deep Convolutional Neural Networks
 - 저자: Alex Krizhevsky, Ilya Sutskever, Geoffrey E. Hinton
-- 소속: University of Toronto
 - 학회: NIPS (NeurIPS 2012)
+- 소속: University of Toronto
 - 키워드
 	\[ImageNet, GPU, ReLU, LRN, Overlapping Pooling, Data Augmentation, Dropout]
 
@@ -42,14 +42,14 @@ title: "ImageNet Classification with Deep Convolutional\rNeural Networks"
 		- 생물학적 신경 모델에서 착안한 개념으로, 
 		  한 뉴런의 활성도가 인접 뉴런의 활성도에 의해 억제되는 **‘local competition’** 현상을 모방.
 		- 이는 특정 feature map이 과도하게 활성화되는 것을 방지하고,
-		  **ReLU의 비선형 활성으로 인한 스파스(sparse)한 표현을 균형 있게 유지**하기 위한 정규화 기법.  
+		  **ReLU의 비선형 활성으로 인한 희소한(sparse) 표현을 균형 있게 유지**하기 위한 정규화 기법.  
 		- 당시에는 약간의 정확도 향상을 보였으나, 이후 연구에서는 **Batch Normalization**이 등장하면서 대체됨.
     - **Overlapping Pooling**
 		- Pooling 윈도우가 겹치도록 설계하여 정보 손실을 줄이고, 모델의 일반화 성능 향상을 유도.  
     - **Dropout**
-		- Fully Connected Layer에서 랜덤하게 뉴런을 비활성화하여 **co-adaptation(공적응)** 을 방지하고 과적합을 줄임.
+		- Fully Connected Layer에서 학습 시 **일부 뉴런을 무작위로 비활성화(drop)** 하여 **과적합(overfitting)** 을 효과적으로 방지하는 정규화 기법.
     - **Data Augmentation**
-		- 랜덤 크롭, 좌우 반전, 색상 왜곡(PCA 기반) 등으로 **데이터 다양성 확보 및 일반화 성능 향상.**  
+		- 랜덤 크롭, 좌우 반전, 색상 왜곡 등으로 **데이터 다양성 확보 및 일반화 성능 향상.**  
     - **Training on Multiple GPUs**
 		- 두 개의 GPU에 네트워크를 분할하여 병렬 학습 → 당시 하드웨어 한계를 넘어 대규모 모델 학습을 실현.
 
@@ -57,7 +57,7 @@ title: "ImageNet Classification with Deep Convolutional\rNeural Networks"
 ### 방법론
 #### 데이터셋 / 실험 환경
 **데이터셋:** ImageNet ILSVRC 2012
-- 약 **120만 장**의 학습 이미지, **1000개 클래스**
+- 약 **128만 장**의 학습 이미지, **1000개 클래스**
 - **전처리:**
     - 이미지를 **256×256**으로 리사이즈 후 **224×224 랜덤 크롭**
     - **좌우 반전, 색상 왜곡(PCA 기반)** 등 **데이터 증강**
@@ -86,14 +86,15 @@ title: "ImageNet Classification with Deep Convolutional\rNeural Networks"
 ---
 
 ### 실험 결과 및 분석
-- **데이터:** ImageNet ILSVRC 2012 (120만 장, 1000 클래스)
+- **데이터:** ImageNet ILSVRC 2012 (128만 장, 1000 클래스)
 - **학습:** SGD, LR=0.01, Momentum=0.9, Dropout=0.5, GPU 2개 병렬
 
-|모델|Top-1 Error|Top-5 Error|비고|
+|모델|데이터셋|Top-1 Error|Top-5 Error|
 |---|---|---|---|
-|AlexNet (1 CNN)|40.7%|18.2%|단일 모델|
-|AlexNet (7 CNNs)|36.7%|15.3%|앙상블 (우승)|
-|2위 (SIFT+FV)|-|26.2%|전통적 방법|
+|**1 CNN**|validation|**40.7%**|**18.2%**|
+|**5 CNNs (ensemble)**|validation|**38.1%**|**16.4%**|
+|**7 CNNs (ensemble)**|validation|**36.7%**|**15.4%**|
+|**7 CNNs (ensemble)**|**test**|–|**15.3%**|
 - 기존 대비 **Top-5 Error 10%p 이상 향상**, 딥러닝 우수성 입증
 - **성능 향상 요인:**
 	- GPU + ReLU + Dropout 
@@ -140,4 +141,5 @@ AlexNet의 성능 개선은 단일 요인이라기보다 여러 혁신이 결합
 - 추가 참고할 논문
 
 **ReLU:** 일부 뉴런이 영구적으로 비활성화되는 **dying ReLU 문제**가 존재
-
+Data Augmentation은 항상 좋은가?
+정규화와 일반화
