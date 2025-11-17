@@ -17,7 +17,7 @@ author: '"원기찬", "kichanwon"'
 ---
 
 ## 📚 논문 리뷰 (Paper Reviews)
->[[PaperReview|🧭 \Paper_Index]]
+>[[PaperReview|🧭Paper_Index]]
 - [[content/Study/PaperReview/ON LARGE-BATCH TRAINING FOR DEEP LEARNING|ON LARGE-BATCH TRAINING FOR DEEP LEARNING]]
 - [[AlexNet_ImageNet Classification with Deep Convolutional Neural Networks]]
 - [[ResNet_Deep Residual Learning for Image Recognition]]
@@ -35,3 +35,10 @@ author: '"원기찬", "kichanwon"'
 - [[Troubleshooting|🧭Troubleshooting_Index]]
 
 ---
+
+## 📝 AI융합연구센터
+> [[AI_Internship | 🧭AI_Lap_Index]]
+- [[Week1]]
+- [[Week2]]
+- [[Week3]]
+- \[\[Week4]]

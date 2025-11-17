@@ -111,7 +111,7 @@ AlexNet의 성능 개선은 단일 요인이라기보다 여러 혁신이 결합
 - **GPU 병렬:** 메모리 한계를 극복해 대규모 파라미터(≈60M) 학습 실현, 학습 시간 **1/5 단축**.  
 > ReLU → 학습 안정성 ↑ · Dropout → 일반화 ↑ · GPU → 모델 확장 ↑  
 #### LRN과 Overlapping Pooling의 재평가
-- **LRN (Local Response Normalization):**  
+- **LRN (Local Response Normalization):**
 - **LRN:** Top-1 약 **+1.4% 향상** 보고되었으나, 후속 연구에서 효과 미미 → 이후 **BatchNorm**으로 대체.  
 - **Overlapping Pooling:** Feature 손실 감소로 **소폭 성능 향상(+0.4%)**, 이후 모델(VGG·ResNet 등)에서도 기본 채택.
 #### 한계
@@ -120,8 +120,7 @@ AlexNet의 성능 개선은 단일 요인이라기보다 여러 혁신이 결합
 #### 요약
 > AlexNet은 단일 기술적 혁신이 아닌,
 > **ReLU, Dropout, GPU 병렬화, 데이터 증강**의 복합적 조합으로 성능을 폭발적으로 향상시켰음.  
-> 다만 일부 기법(LRN 등)은 이후 비효율적임이 밝혀져  
-> 딥러닝 구조 발전의 ‘중간 단계적 시도’로 평가됨.
+> 다만 일부 기법(LRN, Overlapping Pooling 등)은 이후 비효율적임이 밝혀져 딥러닝 구조 발전의 ‘중간 단계적 시도’로 평가됨.
 
 ---
 
