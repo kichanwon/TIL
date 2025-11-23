@@ -18,10 +18,10 @@ tags:
 >_"Is learning better networks as easy as stacking more layers?"_
 >(네트워크를 깊게 쌓기만 하면 성능이 좋아질까?)
 - Xavier/He 초기화, BatchNorm 등으로 **Vanishing/Exploding**은 어느 정도 해결
-    → 그러나 **깊어질수록 성능이 떨어지는 문제(degradation)** 는 여전히 해결되지 않음
-- 얕은 네트워크의 최적해를 깊은 네트워크도 구현할 수 있음이 보장되는데, 
-  실제로는 **깊을수록 훈련 오차가 증가하는 Degradation Problem**
-  → 이 모순이 ResNet의 출발점.
+	- 그러나 **깊어질수록 성능이 떨어지는 문제(degradation)** 는 여전히 해결되지 않음
+- 얕은 네트워크의 최적해를 깊은 네트워크도 구현할 수 있음이 보장되는데,
+	- 실제로는 **깊을수록 훈련 오차가 증가하는 Degradation Problem**
+→ 이 모순이 ResNet의 출발점.
 
 ---
 
@@ -45,22 +45,22 @@ tags:
 
 **ResNet**
 - ResNet은
-	$H(x)=F(x)+x$ / $H(x)-x=F(x)$ 
+	- $H(x)=F(x)+x$ / $H(x)-x=F(x)$ 
 - 목표 함수가 $H(x)=x$라면,
-    $F(x)=H(x)−x=0$
+	- $F(x)=H(x)−x=0$
 
 **의미**
-- 레이어는 **항등함수 전체**를 만드는 대신
-    단순히 **출력을 0으로 만드는 것만 학습**하면 됨.
+- 레이어는 **항등함수 전체**를 만드는 대신 단순히 **출력을 0으로 만드는 것만 학습**하면 됨.
 
 - [[Initialization&Normalization|현대 초기화는 모든 weight를 0 근처의 작은 값 으로 둠.]]
-	Xavier/He 초기화는 대부분의 가중치가 이미 **0 근처**
-	따라서 Residual block의 초깃값은 자연스럽게
+	- Xavier/He 초기화는 대부분의 가중치가 이미 **0 근처**
+	- 따라서 Residual block의 초깃값은 자연스럽게
 $$F(x)\approx 0$$
-    → 즉, 이미 **항등함수에 매우 가까운 상태로 시작**
+→ 즉, 이미 **항등함수에 매우 가까운 상태로 시작**
 
 - 파라미터를 $0$ 근처로 두는 것이 훨씬 쉬움
-    → 최적화 난도 대폭 감소.
+→ 최적화 난도 대폭 감소.
+
 
 **기존 방식**
 - 요구: “비선형 레이어 스택으로 복잡한 항등함수 $H(x)=x$를 구현하라.”
@@ -73,7 +73,7 @@ $$F(x)\approx 0$$
 **요약**
 - **비선형 레이어 스택에게 항등함수 $H(x)=x$ 를 만들게 하는 것은 어렵다.**
 - **잔차 $F(x)$ 를 $0$으로 만들게 하는 것은 압도적으로 쉽다.**  
-    → 그래서 ResNet은 매우 깊어도 학습이 잘됨.
+→ 그래서 ResNet은 매우 깊어도 학습이 잘됨.
 
 #### **Identity Shortcut**
 - Shortcut connection은 입력 $x$를 **그대로 다음 블록으로 전달**하는 경로.
@@ -86,8 +86,8 @@ $$F(x)\approx 0$$
 1. **항등함수를 “구조적으로” 쉽게 만들어서 최적화가 쉬워짐**
 	- 기존 CNN은 비선형 조합으로 $H(x)=x$를 만들어야 하므로 어려움
 	- identity shortcut은 $x$를 그대로 전달함으로써 
-	  **항등함수를 네트워크 구조 차원에서 보장**
-	  → Residual block이 “$x$ 그대로 전달 + 작은 변화 $F(x)$”만 학습하면 됨
+	- **항등함수를 네트워크 구조 차원에서 보장**
+	- → Residual block이 “$x$ 그대로 전달 + 작은 변화 $F(x)$”만 학습하면 됨
 2. **Gradient 흐름을 직접 전달하여 깊어져도 학습이 망가지지 않음**
 	- 역전파 시 gradient가 shortcut을 통해 아래처럼 흐름 _(BN, ReLU의 도함수 X)_
 	$$\frac{\partial H}{\partial x} = 1 + \frac{\partial F}{\partial x}​$$
@@ -99,7 +99,7 @@ $$F(x)\approx 0$$
  **Shortcut 옵션 (Dimension mismatch 처리)**
 - **Option A — Zero-padding identity shortcut**
     - 차원이 늘어날 때 부족한 채널을 0으로 채우기
-	      (0으로 채운 곳은 residual learning X)
+	    - (0으로 채운 곳은 residual learning X)
 	- 파라미터가 없는 **완전한 identity mapping**
 	- 가장 가볍고 단순한 방식
 - **Option B — Projection shortcut (1×1 convolution)**
@@ -110,14 +110,14 @@ $$F(x)\approx 0$$
 	- projection layer 수가 많아져 FLOPs·메모리 모두 크게 증가
 
 세 옵션 모두 plain network보다 훨씬 좋은 성능을 보이며,  
-	A는 가장 가볍고 기본
-	B는 약간 더 정확,
-	C는 미세하게 더 정확하지만 비효율
+- A는 가장 가볍고 기본
+- B는 약간 더 정확,
+- C는 미세하게 더 정확하지만 비효율
 ResNet은 A/B 기반의 “Residual + Identity Shortcut” 구조
 
 **요약**
 - ResNet의 핵심은 “Residual + Identity Shortcut” 조합
-	  Residual 개념과 Shortcut으로 구현
+	- Residual 개념과 Shortcut으로 구현
 - Projection은 차원 맞추기가 필요한 경우에만 보조적으로 사용
 
 #### **Bottleneck Architecture**
@@ -127,18 +127,18 @@ ResNet은 A/B 기반의 “Residual + Identity Shortcut” 구조
 
 - Conv의 연산량(FLOPs)은
 $$H \times W \times C_{in} \times C_{out} \times 3 \times 3$$
-→ **채널 수(C)가 클수록 FLOPs가 $C^2$에 비례하여 증가**
+- [>] **채널 수(C)가 클수록 FLOPs가 $C^2$에 비례하여 증가**
   
 
 **구조**
-(1) **1×1 Conv (차원 축소)**
-- $e.g.$ 256 → 64
-- 연산량 거의 없음
-(2) **3×3 Conv (특징 추출)**
-- 축소된 채널(64ch)에서 연산 수행
-(3) **1×1 Conv (차원 복원)**
-- $e.g.$ 64 → 256
-- 원래 채널 수로 되돌림
+1) **1×1 Conv (차원 축소)**
+	- $e.g.$ 256 → 64
+	- 연산량 거의 없음
+2) **3×3 Conv (특징 추출)**
+	- 축소된 채널(64ch)에서 연산 수행
+3) **1×1 Conv (차원 복원)**
+	- $e.g.$ 64 → 256
+	- 원래 채널 수로 되돌림
 
 ---
 
