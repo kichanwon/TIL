@@ -17,7 +17,7 @@ title: "AlexNet: ImageNet Classification with Deep Convolutional\rNeural Network
 ---
 
 ### 연구 배경
-- 기존 이미지 분류는 **사람이 설계한 특징(handcrafted features)** 에 의존(예: SIFT, HOG) → 복잡한 패턴 학습 한계
+- 기존 이미지 분류는 **사람이 설계한 특징(handcrafted features)** 에 의존(예: [[feature_extraction (SIFT,HOG)|SIFT, HOG]]) → 복잡한 패턴 학습 한계
 - 딥러닝은 가능성이 있었지만 
   **학습 불안정성(gradient explosion/vanishing), 적절한 초기화 기법 부재, 컴퓨팅 자원 부족** 등으로 인해 
   실제 대규모 학습에 적용하기 어려웠음
