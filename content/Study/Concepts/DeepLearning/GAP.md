@@ -1,7 +1,8 @@
 ---
 title: "Global Average Pooling: Spatial Abstraction and Feature Compression"
 ---
-GAP은 “Tensor의 공간 평균을 내는 연산”
+>GAP(Global Average Pooling)은 “Tensor의 공간 평균을 내는 연산”
+
 **GAP은 평균을 내기 때문에 공간 정보를 삭제하는 연산**
 7×7×2048 → GAP → 1×1×2048
 - 각 채널의 7×7 공간 정보를 **평균값 하나로 압축**

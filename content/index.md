@@ -18,7 +18,7 @@ author: '"원기찬", "kichanwon"'
 
 ## 📚 논문 리뷰 (Paper Reviews)
 >[[PaperReview|🧭Paper_Index]]
-- [[content/Study/PaperReview/ON LARGE-BATCH TRAINING FOR DEEP LEARNING|ON LARGE-BATCH TRAINING FOR DEEP LEARNING]]
+- [[DRAFTED-ON LARGE-BATCH TRAINING FOR DEEP LEARNING|DRAFTED-ON LARGE-BATCH TRAINING FOR DEEP LEARNING]]
 - [[AlexNet_ImageNet Classification with Deep Convolutional Neural Networks]]
 - [[ResNet_Deep Residual Learning for Image Recognition]]
 

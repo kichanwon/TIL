@@ -5,11 +5,11 @@ tags:
   - paper_review
 ---
 # 📄 Deep Residual Learning for Image Recognition
-**Authors:** Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun
-**Affiliation:** Microsoft Research, Xi’an Jiaotong University
-**Conference:**  (1449673200000)
-**DOI:** [10.48550/arXiv.1512.03385](https://doi.org/10.48550/arXiv.1512.03385)
-- **Keywords:** \[Residual, ]
+**Authors:** Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun 
+**Affiliation:** Microsoft Research, Xi’an Jiaotong University 
+**Conference:**  (1449673200000) 
+**DOI:** [10.48550/arXiv.1512.03385](https://doi.org/10.48550/arXiv.1512.03385) 
+- **Keywords:** \[Residual, IdentityShorcut, Degradation, ] 
 
 ---
 
@@ -96,7 +96,7 @@ $$F(x)\approx 0$$
 	    → gradient가 소실되지 않고, 깊은 네트워크도 안정적으로 학습됨
 	- 이후 학습이 진행되면서 $F(x)$는 필요한 residual 값을 학습
 
- **Shortcut 옵션 (Dimension mismatch 처리)**
+**Shortcut 옵션 (Dimension mismatch 처리)**
 - **Option A — Zero-padding identity shortcut**
     - 차원이 늘어날 때 부족한 채널을 0으로 채우기
 	    - (0으로 채운 곳은 residual learning X)
@@ -127,7 +127,7 @@ ResNet은 A/B 기반의 “Residual + Identity Shortcut” 구조
 
 - Conv의 연산량(FLOPs)은
 $$H \times W \times C_{in} \times C_{out} \times 3 \times 3$$
-- [>] **채널 수(C)가 클수록 FLOPs가 $C^2$에 비례하여 증가**
+-> **채널 수(C)가 클수록 FLOPs가 $C^2$에 비례하여 증가**
   
 
 **구조**
@@ -142,8 +142,8 @@ $$H \times W \times C_{in} \times C_{out} \times 3 \times 3$$
 
 ---
 
-### 방법론
-- 모델 구조
+### **방법론**
+- **모델 구조**
 ![[/static/images/resnet50_arhitecture.webp]]
 1. **Stem (입력 처리 구간)**
 	그림의 ZERO PAD → CONV → BN → ReLU → MAX POOL
@@ -191,97 +191,80 @@ $$H \times W \times C_{in} \times C_{out} \times 3 \times 3$$
 4) 모든 block 내부는 Bottleneck 구조
 5) Stage가 바뀔 때 dimension mismatch가 생김
 
-- 네트워크 구성 요소
-Batch Normalization
-He Initialization
-Global Average Pooling
-Zero-padding identity shortcut
-Fully convolutional inference
+- **모듈 구성**
+A. Stem 모듈
+- Zero padding
+	- 합성곱 연산에서 입력 텐서의 가장자리를 0으로 채워 공간 크기를 유지하거나 조절하는 방식이다. 패딩을 적용하면 컨볼루션 필터가 가장자리에서도 동일한 연산 범위를 갖는다. ResNet에서는 stem의 7×7 합성곱과 residual block 내부의 3×3 합성곱에서 출력 해상도 유지 목적으로 사용된다.
+- 7×7 Conv
+	- 입력 이미지의 넓은 영역을 한 번에 처리하기 위해 커널 크기를 7×7로 설정한 합성곱 연산이다. 큰 수용영역을 초기 단계에서 확보해 저해상도 특징을 빠르게 추출하는 목적에 사용된다. ResNet에서는 stem 단계에서 stride를 2로 두어 공간 크기를 절반으로 줄이며 초기 특징지도를 형성한다.
+- [[DRAFTED-Batch Normalization|BatchNorm]]
+	- 모든 합성곱 뒤에 BatchNormalization을 적용해 최적화 안정성과 학습 수렴성을 확보한다.
+- [[DRAFTED-Rectified Linear Units Improve Restricted Boltzmann Machines|ReLU]]
+	- 각 합성곱과 배치정규화 뒤에 배치되어 잔차 경로의 표현력을 확보하고 비선형성을 제공한다.
+- [[Max Pooling|MaxPool]]
+	- stem 단계에서 stride가 큰 합성곱 뒤에 배치되어 해상도를 빠르게 축소하고 이후 블록들이 처리하기 적합한 크기의 초기 특징지도를 형성한다.
 
-- 학습 구성
-데이터 증강 방법
+B. Residual Block 모듈
+- Conv  
+- [[DRAFTED-Batch Normalization]]  
+- [[DRAFTED-Rectified Linear Units Improve Restricted Boltzmann Machines|ReLU]]  
+- Basic$\cdot$Bottleneck architecture 
+- Identity shortcut  
+- Projection shortcut  
+- Zero-padding shortcut  
+- Element-wise Add(F(x)+x)
+
+C. Head 모듈
+- [[GAP|Global Average Pooling]]  
+- Fully Connected Layer  
+- [[Softmax]]
+
+D. 학습 안정 모듈
+- [[He initialization]]  
+- BatchNorm의 scaling / shifting  
+- Fully convolutional inference
+
+
+- **학습 구성**
+~~데이터 증강 방법
 Optimizer와 하이퍼파라미터
 Learning rate 스케줄
 Dropout 미사용
-Multi-scale testing
+Multi-scale testing~~
 
 ---
 
 ### 실험 결과 및 분석
-
-Plain vs Residual 비교 (18/34-layer)
+~~Plain vs Residual 비교 (18/34-layer)
 Degradation 문제 시각화(Figure 4)
 Shortcut 옵션(A/B/C) 실험 결과
 Bottleneck 깊이 증가(50/101/152-layer) 성능
-SOTA 비교(ILSVRC 2015)
+SOTA 비교(ILSVRC 2015)~~
+
 
 ---
 
 ### 결론 및 시사점
-
-Residual Learning의 영향
+~~Residual Learning의 영향
 Shortcut의 본질적 의의
 깊은 네트워크 설계에 대한 새로운 기준
-후속 연구(Pre-activation ResNet 등)로 이어진 흐름
+후속 연구(Pre-activation ResNet 등)로 이어진 흐름~~
 
 ---
 
 ### 개인 코멘트
 - 이해가 어려웠던 부분  
 - 추가로 찾아볼 개념 (논문 내 용어·참고 문헌 등)
-	- Pre-activation (later variant)
+	- ResNet v2: Pre-activation (later variant)
 
 - 추가 참고할 논문
-(1) Normalized Initialization 계열
-Xavier Initialization
-Glorot & Bengio — “Understanding the Difficulty of Training Deep Feedforward Neural Networks” (2010)
 
-He Initialization (ReLU 최적화)
+(1) Normalized Initialization 계열
+- Xavier Initialization
+Glorot & Bengio — “Understanding the Difficulty of Training Deep Feedforward Neural Networks” (2010)
+- He Initialization (ReLU 최적화)
 He et al. — “Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification” (2015)
 
 (2) Intermediate Normalization Layers 계열
 Batch Normalization
 Ioffe & Szegedy — “Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift” (2015)
-
-
----
-
-
-
-# 메모
-
-## ✔ **x = 블록의 입력(feature map)**
-- 이전 레이어에서 넘어온 값
-- “원본 정보”
-## ✔ **F(x) = Residual 함수가 학습해야 할 것**
-- **블록 내부 레이어(Conv-BN-ReLU-Conv...)가 만들어낸 변환**
-- 즉, 학습 가능한 부분
-- 초기화 때문에 처음에는 F(x) ≈ 0
-## ✔ **H(x) = 블록의 전체 출력(목표 함수)**
-- 이 블록이 **최종적으로 표현해야 하는 함수
-
-|용어|의미|누가 정하는가|
-|---|---|---|
-|**x**|입력|이전 레이어가 출력한 feature|
-|**F(x)**|학습해야 하는 “변화량”|네트워크(학습)|
-|**H(x)**|블록이 최종적으로 표현해야 하는 목표 함수|데이터/학습 목적|
-
-
-1. 딥러닝 초기에는 Vanishing/Exploding 때문에 깊게 쌓기 어려움.
-   → Xavier/He 초기화, BatchNorm 덕분에 20~30층은 학습 가능.
-
-2. 그런데 깊게 쌓으면 성능이 좋아져야 하는데,
-   실제로는 deeper model이 shallower model보다 훈련 오차가 더 커지는
-   “Degradation Problem”이 발생.
-
-3. 깊은 신경망은 항등함수 H(x)=x를 직접 구현하기 매우 어려움.
-   → 비선형 조합으로 x를 그대로 내보내는 것이 복잡함.
-   → 초기화는 F(x)=0으로 가기 쉽게 해주지만, H(x)=x 자체는 어려움.
-
-4. Residual을 도입.
-   H(x)=F(x)+x 로 바꾸면, F(x)=0이 최적해가 되어
-   깊은 네트워크에서도 최적화가 매우 쉬움.
-
-5. Shortcut으로 gradient를 손실 없이 보냄.
-6. Bottleneck Architecture로 연산량 감소.
-

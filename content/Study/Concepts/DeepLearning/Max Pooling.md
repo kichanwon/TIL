@@ -1,6 +1,8 @@
 ---
 title: "Max Pooling: Spatial Downsampling via Local Maximum Selection"
 ---
+입력 특징맵의 일정 영역에서 최댓값을 선택해 공간 크기를 줄이는 연산이다. 연산량을 감소시키고 수용영역을 넓히는 효과가 있으며 필터 응답에서 강한 특징을 보존한다
+
 **MaxPool은 “Tensor의 공간에서 최대값을 추출하는 연산”**  
 2×2 영역에서 가장 큰 값만 선택해 **해상도를 줄이는 연산**
 

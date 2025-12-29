@@ -3,7 +3,7 @@ draft: false
 ---
 배치 사이즈는 옵티마이저와 연관이 깊다.
 
-- [[content/Study/PaperReview/ON LARGE-BATCH TRAINING FOR DEEP LEARNING]]
+- [[DRAFTED-ON LARGE-BATCH TRAINING FOR DEEP LEARNING]]
 - [참고1](https://davidlds.tistory.com/33)
 - [참고2](https://bruders.tistory.com/79)
 - [참고3](https://honeyjamtech.tistory.com/43)

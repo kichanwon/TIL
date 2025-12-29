@@ -3,87 +3,68 @@ draft: true
 ---
 early stopping
 
-normalization
-regulization
+---
+## 1. Normalization
+**목표**: 특성의 **값 범위를 일정 구간으로 재조정**  
+**방식**: 최소–최대 기반 스케일 조정
+- 대표식:
+$$    x' = \frac{x - \min(x)}{\max(x) - \min(x)}$$
+- 결과 범위: 보통 \[0, 1] 또는 \[-1, 1]
+- 의미: 데이터의 **절대 크기(scale)** 만 바꿀 뿐, **분포(shape)** 는 유지
+**효과층**: 모델의 입력 규모를 균일하게 맞춰 **계산 안정성 확보**
+## 2. Standardization
+**목표**: 특성을 **평균 0, 분산 1**을 갖는 정규화된 축으로 변환  
+**방식**: z-score 변환
+- 대표식:
+$$x' = \frac{x - \mu}{\sigma}$$
+- 결과 분포: 평균 0, 표준편차 1
+    
+- 의미: 데이터의 **분포 중심과 폭을 재정렬**하여 통계적 기준축(Standard Normal Space)으로 이동
+    
+
+**효과층**: 특성이 서로 다른 단위·스케일을 갖는 경우 **최적화 기울기 안정화**
 
 ---
-### **1. Introduction**
-### **2. Related Work**
 
-### **3. Deep Residual Learning**
-- **3.1. Residual Learning**
-- **3.2. Identity Mapping by Shortcuts**
-- **3.3. Network Architectures**
-- **3.4. Implementation**
+## 3. Regularization
 
-### **4. Experiments**
-- **4.1. ImageNet Classification**
-- **4.2. CIFAR-10 and Analysis**
-- **4.3. Object Detection on PASCAL and MS COCO**
+**목표**: 모델의 **과적합 제어**, 파라미터 복잡도 억제  
+**방식**: 손실함수에 **패널티 항 추가**
 
-## 1. Introduction
-- 매우 깊은 네트워크
-- Degradation problem
-- Vanishing / Exploding gradients
-- Normalized initialization
-- Intermediate normalization (BatchNorm)
-- Optimization difficulty
-- Residual learning 필요성
-## 2. Related Work
-- Residual representations (VLAD, Fisher Vector)
-- Multigrid / PDE residual solution
-- Preconditioning
-- Shortcut connections (early MLP shortcuts, auxiliary classifiers)
-- Centering responses (skip connections)
-- Inception shortcuts
-- Highway networks (gated shortcuts vs identity shortcuts)
-## 3. Deep Residual Learning
-### 3.1 Residual Learning
-- Underlying mapping H(x)H(x)H(x)
-- Residual mapping F(x)=H(x)−xF(x) = H(x) - xF(x)=H(x)−x
-- Identity mapping
-- Optimization ease
-- Solvers difficulty in fitting identity
-- Preconditioning effect
-- Small residual responses
-### 3.2 Residual Network Architecture
-- Basic block (2-layer)
-- Shortcut connection
-- Identity shortcut
-- Projection shortcut (1×1 conv)
-- Dimension matching
-- Parameter-free shortcuts
-- Element-wise addition
-### 3.3 Network Architectures
-- Plain network (VGG-style)
-- 3×3 convolution rules
-- Downsampling via stride
-- Global average pooling
-- FLOPs 비교 (VGG vs plain)
-- Residual network counterpart
-- Shortcut option A (zero-padding)
-- Shortcut option B (projection)
-- Shortcut option C (full projection)
-- Convergence speed
-- Degradation vs residual success
-### 3.4 Implementation
-- Data augmentation
-- BatchNorm after conv
-- He initialization
-- SGD setup
-- Learning rate schedule
-- No dropout
-- Multi-scale testing
-- Fully convolutional inference
-## 4. Experiments
-### 4.1 ImageNet Classification
-- 18-layer / 34-layer plain nets
-- 18-layer / 34-layer ResNets
-- Degradation in plain nets
-- Residual learning solves degradation
-- Training/validation error comparison
-- Top-1 / Top-5 error
-- Identity vs projection shortcuts
-- Convergence improvement
-- Residual effectiveness
+- L1:
+$$\lambda \sum |w|$$
+    가중치 희소성 유도
+- L2:
+$$\lambda \sum w^2$$    
+    큰 가중치 억제
+- 의미: 입력 스케일 조정이 아니라 **모델 파라미터 공간에 제약**을 가함
+**효과층**: 모델의 일반화 능력 향상
 
+- **Normalization**: 데이터 **범위** 조정
+- **Standardization**: 데이터 **분포** 조정
+- **Regularization**: 모델 **파라미터** 조정
+
+---
+
+# 연구실 소개 ppt
+
+WCD 사진
+대학원실　전경
+서버실　전경
+장학금　관련
+
+순서
+1. 전경
+2. 인원 소개
+	1. 교수 소개 (전공, 학력, 주요경력, 논문) 2명
+	2. 박사 소개 (연구: 문제 원인, 알고리즘, 산출물) 2명
+	3. 석사 소개 (연구: 문제 원인, 알고리즘, 산출물) 4명
+	4. 학부연구생 소개 (연구: 문제 원인, 알고리즘, 산출물) 1명
+3. 팀 연구 소개 (연구: 문제 원인, 알고리즘, 산출물) 2개
+4. AI 비전 기반 핵심 프로젝트
+5. 연구실 혜택 (한페이지로)
+	1. 논문 세미나 & 랩미팅
+	2. 컨퍼런스 참여
+	3. gpu 인프라
+	4. 연구용 H/W
+	5. 장학금
