@@ -45,7 +45,8 @@ tags:
 
 **ResNet**
 - ResNet은
-	- $H(x)=F(x)+x$ / $H(x)-x=F(x)$ 
+	- $H(x)=F(x)+x$
+	  $H(x)-x=F(x)$ 
 - 목표 함수가 $H(x)=x$라면,
 	- $F(x)=H(x)−x=0$
 
