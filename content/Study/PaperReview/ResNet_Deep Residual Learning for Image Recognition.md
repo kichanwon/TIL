@@ -192,28 +192,29 @@ $$H \times W \times C_{in} \times C_{out} \times 3 \times 3$$
 5) Stage가 바뀔 때 dimension mismatch가 생김
 
 - **모듈 구성**
-A. Stem 모듈
-- Zero padding
-	- 합성곱 연산에서 입력 텐서의 가장자리를 0으로 채워 공간 크기를 유지하거나 조절하는 방식이다. 패딩을 적용하면 컨볼루션 필터가 가장자리에서도 동일한 연산 범위를 갖는다. ResNet에서는 stem의 7×7 합성곱과 residual block 내부의 3×3 합성곱에서 출력 해상도 유지 목적으로 사용된다.
-- 7×7 Conv
-	- 입력 이미지의 넓은 영역을 한 번에 처리하기 위해 커널 크기를 7×7로 설정한 합성곱 연산이다. 큰 수용영역을 초기 단계에서 확보해 저해상도 특징을 빠르게 추출하는 목적에 사용된다. ResNet에서는 stem 단계에서 stride를 2로 두어 공간 크기를 절반으로 줄이며 초기 특징지도를 형성한다.
-- [[DRAFTED-Batch Normalization|BatchNorm]]
-	- 모든 합성곱 뒤에 BatchNormalization을 적용해 최적화 안정성과 학습 수렴성을 확보한다.
-- [[DRAFTED-Rectified Linear Units Improve Restricted Boltzmann Machines|ReLU]]
-	- 각 합성곱과 배치정규화 뒤에 배치되어 잔차 경로의 표현력을 확보하고 비선형성을 제공한다.
-- [[Max Pooling|MaxPool]]
-	- stem 단계에서 stride가 큰 합성곱 뒤에 배치되어 해상도를 빠르게 축소하고 이후 블록들이 처리하기 적합한 크기의 초기 특징지도를 형성한다.
+**A. Stem 모듈**
 
-B. Residual Block 모듈
-- Conv  
-- [[DRAFTED-Batch Normalization]]  
-- [[DRAFTED-Rectified Linear Units Improve Restricted Boltzmann Machines|ReLU]]  
-- Basic$\cdot$Bottleneck architecture 
-- Identity shortcut  
-- Projection shortcut  
-- Zero-padding shortcut  
-- Element-wise Add(F(x)+x)
+| 구성 요소                                                                              | 설명                                                                                                                                                  |
+| ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Zero Padding**                                                                   | 입력 텐서의 공간 크기를 유지하기 위해 주변을 0으로 채운다. 이로써 합성곱 필터가 경계 영역에서도 동일한 연산 범위를 갖는다. ResNet에서는 stem의 7×7 conv와 residual block 내부의 3×3 conv에서 출력 해상도 유지를 위해 사용된다. |
+| **7×7 Conv**                                                                       | 입력 이미지의 넓은 수용영역을 한 번에 처리하여 저해상도 특징을 빠르게 추출한다. stride=2를 적용해 공간 크기를 절반으로 줄이며, 초기 특징지도를 구성한다.                                                         |
+| **[[DRAFTED-Batch Normalization\|BatchNorm]]**                                     | 합성곱 연산 뒤에 배치되어 internal covariate shift를 완화하고 학습 안정성을 확보한다.                                                                                         |
+| **[[DRAFTED-Rectified Linear Units Improve Restricted Boltzmann Machines\|ReLU]]** | 비선형성을 부여하며, 음수 영역을 0으로 절단하여 gradient 흐름을 유지한다.                                                                                                      |
+| **[[Max Pooling\|MaxPool]]**                                                       | 큰 stride의 풀링을 통해 해상도를 빠르게 축소하고, 이후 residual block이 처리하기 적합한 크기의 특징지도를 생성한다.                                                                         |
 
+**B. Residual Block 모듈**
+
+| 구성 요소                              | 설명                                                                                                                                                         |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Convolution + BatchNorm + ReLU** | 각 residual branch는 conv → [[DRAFTED-Batch Normalization\|BN]]   → [[DRAFTED-Rectified Linear Units Improve Restricted Boltzmann Machines\|ReLU]] 순으로 구성된다. |
+| **Basic Block / Bottleneck Block** |                                                                                                                                                            |
+| _Basic Block_                      | 3×3 conv × 2 구조로 shallow 네트워크(ResNet-18/34)에 사용.                                                                                                           |
+| _Bottleneck Block_                 | 1×1 → 3×3 → 1×1 conv 구조로 deep 네트워크(ResNet-50/101/152)에 사용.                                                                                                 |
+| **Shortcut 종류**                    |                                                                                                                                                            |
+| _Identity Shortcut_                | 입력과 출력의 채널 수가 동일할 때 직접 더함                                                                                                                                  |
+| _Projection Shortcut_              | 차원이 다를 경우 1×1 conv를 이용해 선형 변환                                                                                                                              |
+| _Zero-Padding Shortcut_            | 출력 채널이 많을 때, 부족한 부분을 0으로 채워 일치시킴.                                                                                                                          |
+| **Element-wise Addition**          | 변환된 잔차 $F(x)$와 입력 $x$를 element-wise로 더하여 최종 출력을 형성.                                                                                                        |
 C. Head 모듈
 - [[GAP|Global Average Pooling]]  
 - Fully Connected Layer  
