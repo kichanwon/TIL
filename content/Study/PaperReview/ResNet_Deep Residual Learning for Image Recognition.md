@@ -233,6 +233,25 @@ Optimizer와 하이퍼파라미터
 Learning rate 스케줄
 Dropout 미사용
 Multi-scale testing~~
+#### 데이터셋 및 입력 전처리
+**ImageNet (ILSVRC 2012)**
+- 학습 이미지: 약 1.28M
+- 검증 이미지: 50K
+- 클래스 수: 1000
+
+**입력 크기**
+- 학습: 224 × 224 RGB crop
+- 테스트: shorter side = 256 → center crop 224 × 224
+
+#### 데이터 증강
+논문에서 사용한 증강은 **표준적인 ImageNet 설정**에 국한됨.
+- Random resized crop (224 × 224)
+- Random horizontal flip
+- Color jitter, Cutout, Mixup 등 **사용하지 않음**
+
+중요한 점  
+→ ResNet의 성능 향상은 **특수한 augmentation 때문이 아님**  
+→ 구조적 개선의 효과를 분리해서 보여주기 위함
 
 ---
 
