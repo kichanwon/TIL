@@ -1,6 +1,7 @@
 ---
 tags:
   - paper_review
+  - paper_semina
 draft: true
 title: Towards RAW Object Detection in Diverse Conditions
 ---

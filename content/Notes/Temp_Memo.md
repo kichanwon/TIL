@@ -234,3 +234,23 @@ npm install class-validator class-transformer
 # Prisma 초기화
 npx prisma init
 ```
+
+
+```python
+import random # 시드 고정
+
+random.seed(42) # Python random 모듈 시드 고정
+np.random.seed(42) # NumPy 시드 고정
+torch.manual_seed(42) # PyTorch CPU 시드 고정
+
+if torch.cuda.is_available(): # PyTorch CUDA(GPU) 시드 고정 (GPU 사용 시)
+    torch.cuda.manual_seed(42)
+    # torch.cuda.manual_seed_all(42) # 멀티 GPU 사용 시
+
+# PyTorch CuDNN 백엔드 설정 (재현성 보장을 위해 성능 저하 감수)
+    # CuDNN: H/W 레벨에서 복잡한 연산을 빠르고 효율적으로 수행
+    # 속도(Benchmark): True 시, 실행마다 H/W에서 가장 빠른 알고리즘 동적으로 찾아 실행
+    # 비결정성(Non-Deterministic): 동일한 입력과 초기 상태에도 실행마다 결과가 달라질 수 있는 성질
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+```
