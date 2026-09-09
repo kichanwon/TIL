@@ -24,4 +24,4 @@
 | condition                | half-bottle                         |
 |                          |                                     |
 
-[[BerryBros&Rudd]]
+BerryBros&Rudd

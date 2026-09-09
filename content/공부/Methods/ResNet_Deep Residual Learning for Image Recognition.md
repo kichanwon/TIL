@@ -28,7 +28,7 @@ tags:
 ### 주요 아이디어
  >**Residual Learning**으로 최적화 난이도 해결
  >**Identity Shortcut**으로 gradient 흐름 문제 해결
- >**Bottleneck Architerture**로 [[FLOPs]] 감소로 깊이 확장 > 성능 향상
+ >**Bottleneck Architerture**로 FLOPs 감소로 깊이 확장 > 성능 향상
 #### **Residual learning의 이해**
 > 새로운 레이어가 수행해야 할 목표 가정: **항등함수 $H(x)=x$**
 
@@ -53,7 +53,7 @@ tags:
 **의미**
 - 레이어는 **항등함수 전체**를 만드는 대신 단순히 **출력을 0으로 만드는 것만 학습**하면 됨.
 
-- [[Initialization&Normalization|현대 초기화는 모든 weight를 0 근처의 작은 값 으로 둠.]]
+- 현대 초기화는 모든 weight를 0 근처의 작은 값 으로 둠.
 	- Xavier/He 초기화는 대부분의 가중치가 이미 **0 근처**
 	- 따라서 Residual block의 초깃값은 자연스럽게
 $$F(x)\approx 0$$
@@ -166,10 +166,10 @@ $$H \times W \times C_{in} \times C_{out} \times 3 \times 3$$
 	- Stage 4: CONV BLOCK + ID BLOCK ×5
 	- Stage 5: CONV BLOCK + ID BLOCK ×2
 4. **Head (출력 처리 구간)**
-	- **AVG POOL [[GAP|(Global Average Pooling)]]**
-	- **[[Flatten]]** (생략 가능)
+	- **AVG POOL (Global Average Pooling)**
+	- **Flatten** (생략 가능)
 	- **FC (Fully Connected Layer)**
-	- **[[Softmax]]**
+	- **Softmax**
 - **output - Final prediction**
 
 
@@ -199,15 +199,15 @@ $$H \times W \times C_{in} \times C_{out} \times 3 \times 3$$
 | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Zero Padding**                                                                   | 입력 텐서의 공간 크기를 유지하기 위해 주변을 0으로 채운다. 이로써 합성곱 필터가 경계 영역에서도 동일한 연산 범위를 갖는다. ResNet에서는 stem의 7×7 conv와 residual block 내부의 3×3 conv에서 출력 해상도 유지를 위해 사용된다. |
 | **7×7 Conv**                                                                       | 입력 이미지의 넓은 수용영역을 한 번에 처리하여 저해상도 특징을 빠르게 추출한다. stride=2를 적용해 공간 크기를 절반으로 줄이며, 초기 특징지도를 구성한다.                                                         |
-| **[[DRAFTED-Batch Normalization\|BatchNorm]]**                                     | 합성곱 연산 뒤에 배치되어 internal covariate shift를 완화하고 학습 안정성을 확보한다.                                                                                         |
-| **[[DRAFTED-Rectified Linear Units Improve Restricted Boltzmann Machines\|ReLU]]** | 비선형성을 부여하며, 음수 영역을 0으로 절단하여 gradient 흐름을 유지한다.                                                                                                      |
-| **[[Max Pooling\|MaxPool]]**                                                       | 큰 stride의 풀링을 통해 해상도를 빠르게 축소하고, 이후 residual block이 처리하기 적합한 크기의 특징지도를 생성한다.                                                                         |
+| **BatchNorm**                                     | 합성곱 연산 뒤에 배치되어 internal covariate shift를 완화하고 학습 안정성을 확보한다.                                                                                         |
+| **ReLU** | 비선형성을 부여하며, 음수 영역을 0으로 절단하여 gradient 흐름을 유지한다.                                                                                                      |
+| **MaxPool**                                                       | 큰 stride의 풀링을 통해 해상도를 빠르게 축소하고, 이후 residual block이 처리하기 적합한 크기의 특징지도를 생성한다.                                                                         |
 
 **B. Residual Block 모듈**
 
 | 구성 요소                              | 설명                                                                                                                                                         |
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Convolution + BatchNorm + ReLU** | 각 residual branch는 conv → [[DRAFTED-Batch Normalization\|BN]]   → [[DRAFTED-Rectified Linear Units Improve Restricted Boltzmann Machines\|ReLU]] 순으로 구성된다. |
+| **Convolution + BatchNorm + ReLU** | 각 residual branch는 conv → BN   → ReLU 순으로 구성된다. |
 | **Basic Block / Bottleneck Block** |                                                                                                                                                            |
 | _Basic Block_                      | 3×3 conv × 2 구조로 shallow 네트워크(ResNet-18/34)에 사용.                                                                                                           |
 | _Bottleneck Block_                 | 1×1 → 3×3 → 1×1 conv 구조로 deep 네트워크(ResNet-50/101/152)에 사용.                                                                                                 |
@@ -217,12 +217,12 @@ $$H \times W \times C_{in} \times C_{out} \times 3 \times 3$$
 | _Zero-Padding Shortcut_            | 출력 채널이 많을 때, 부족한 부분을 0으로 채워 일치시킴.                                                                                                                          |
 | **Element-wise Addition**          | 변환된 잔차 $F(x)$와 입력 $x$를 element-wise로 더하여 최종 출력을 형성.                                                                                                        |
 C. Head 모듈
-- [[GAP|Global Average Pooling]]  
+- Global Average Pooling  
 - Fully Connected Layer  
-- [[Softmax]]
+- Softmax
 
 D. 학습 안정 모듈
-- [[He initialization]]  
+- He initialization  
 - BatchNorm의 scaling / shifting  
 - Fully convolutional inference
 

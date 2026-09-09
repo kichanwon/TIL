@@ -24,6 +24,6 @@
 | condition                | Last_Dram                                                                                                      |
 
 
-[[Gordon&Macphail_Bar]]
-[[Gordon&Macphail]] 
-[[Glenburgie]]
+Gordon&Macphail_Bar
+Gordon&Macphail 
+Glenburgie
