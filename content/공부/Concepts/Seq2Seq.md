@@ -1,0 +1,16 @@
+# Seq2Seq
+- 입력 Sequence를 받아 출력 Sequence를 생성하는 문제 설정 / 모델링 방식
+- 구현 구조
+    - [[Encoder-Decoder]]
+        - 가장 전형적인 구조
+        - [[Recurrent Neural Network|RNN]]/[[Long Short Term Memory|LSTM]]/[[Gated Recurrent Unit|GRU]] 기반 Seq2Seq
+        - [[Transformer]] Encoder–Decoder
+    - Decoder-only
+        - 입력 Sequence와 출력 Sequence를 하나의 연속된 Sequence처럼 처리
+        - GPT 계열에서 번역·요약 등을 수행할 때 사용 가능
+    - CTC 기반 구조
+        - 입력과 출력의 정렬을 명시적으로 알 수 없는 경우 사용
+        - 음성 인식 등에 대표적
+    - Transducer 계열
+        - 예: RNN-T
+        - 입력을 처리하면서 비동기적으로 출력 Sequence 생성

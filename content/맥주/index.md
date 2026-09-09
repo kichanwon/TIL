@@ -1,10 +1,11 @@
 ---
 title: 맥주
-description: 맥주 테이스팅과 관련 지식
+description: 맥주의 기초, 양조, 스타일과 실제 제품
 ---
 
 # 맥주
 
-- [[맥주/관련 자료/index|관련 자료]]
-- [[맥주/역사 및 스타일 등 정리/index|역사 및 스타일 등 정리]]
-- [[맥주/테이스팅 노트/index|테이스팅 노트]]
+- [[맥주/Basics/index|Basics]]
+- [[맥주/Brewing/index|Brewing]]
+- [[맥주/Styles/index|Styles]]
+- [[맥주/Beers/index|Beers]]

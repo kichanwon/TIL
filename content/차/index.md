@@ -5,5 +5,7 @@ description: 차와 다구에 관한 기록
 
 # 차
 
-- [[차/도구 설명/index|도구 설명]]
-- [[차/차 설명/index|차 설명]]
+- [[차/Teas/index|Teas]]
+- [[차/Processing/index|Processing]]
+- [[차/Brewing/index|Brewing]]
+- [[차/Tools/index|Tools]]

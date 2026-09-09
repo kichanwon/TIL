@@ -5,6 +5,7 @@ description: 원두, 추출법, 테이스팅 기록
 
 # 커피
 
-- [[커피/원두 설명/index|원두 설명]]
-- [[커피/추출방법 정리/index|추출방법 정리]]
-- [[커피/테이스팅 노트/index|테이스팅 노트]]
+- [[커피/Beans/index|Beans]]
+- [[커피/Processing/index|Processing]]
+- [[커피/Brewing/index|Brewing]]
+- [[커피/Equipment/index|Equipment]]

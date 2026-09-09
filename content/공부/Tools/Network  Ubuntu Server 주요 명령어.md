@@ -1,0 +1,184 @@
+---
+aliases:
+  - Network / Ubuntu Server 주요 명령어
+---
+### Ethernet
+- ethernet
+    - 인터페이스 목록
+        - ip -br link
+        - ip link
+    - 인터페이스 상세 상태
+        - sudo networkctl status eno1np0
+        - sudo networkctl status eno2np1
+    - 인터페이스 활성화
+        - sudo ip link set eno1np0 up
+        - sudo ip link set eno2np1 up
+    - 인터페이스 비활성화
+        - sudo ip link set eno1np0 down
+        - sudo ip link set eno2np1 down
+    - 물리 케이블 연결 확인
+        - cat /sys/class/net/eno1np0/carrier
+        - cat /sys/class/net/eno2np1/carrier
+        - 1 = 연결
+        - 0 = 연결 안 됨
+    - 랜카드 상세 정보
+        - sudo ethtool eno1np0
+        - sudo ethtool eno2np1
+    - 링크 연결만 확인
+        - sudo ethtool eno1np0 | grep "Link detected"
+        - sudo ethtool eno2np1 | grep "Link detected"
+    - 랜카드 드라이버 / PCI 정보
+        - sudo ethtool -i eno1np0
+        - sudo ethtool -i eno2np1
+---
+### IP
+- ip
+    - IP 주소 확인
+        - ip -br addr
+        - ip addr
+    - 특정 인터페이스 IP 확인
+        - ip addr show eno1np0
+        - ip addr show eno2np1
+    - 라우팅 / 게이트웨이 확인
+        - ip route
+    - 기본 게이트웨이만 확인
+        - ip route | grep default
+    - 8.8.8.8로 나가는 경로 확인
+        - ip route get 8.8.8.8
+    - ARP / Neighbor 상태 확인
+        - ip neigh
+---
+### netplan
+- netplan
+    - 설정 파일 확인
+        - sudo ls -al /etc/netplan/
+        - sudo cat /etc/netplan/\*.yaml
+    - 현재 Netplan 설정 확인
+        - sudo netplan get
+    - 설정 문법 / 생성 확인
+        - sudo netplan generate
+    - 상세 디버그
+        - sudo netplan --debug generate
+    - 안전하게 설정 테스트
+        - sudo netplan try
+    - 설정 적용
+        - sudo netplan apply
+    - 적용 상태 확인
+        - sudo netplan status --all
+---
+### networkd
+- networkd
+    - systemd-networkd 상태
+        - systemctl status systemd-networkd
+        - systemctl is-active systemd-networkd
+    - 전체 인터페이스 상태
+        - networkctl
+    - 특정 인터페이스 상태
+        - networkctl status eno1np0
+        - networkctl status eno2np1
+    - 로그 확인
+        - sudo journalctl -u systemd-networkd -n 100 --no-pager
+---
+### NetworkManager
+- NetworkManager
+    - 서비스 상태
+        - systemctl status NetworkManager
+        - systemctl is-active NetworkManager
+    - 장치 상태
+        - nmcli device status
+    - 연결 설정 확인
+        - nmcli connection show
+---
+### ping / network test
+- ping / network test
+    - 게이트웨이 확인
+        - ping -c 4 <gateway IP\>
+		- 인터넷 연결 확인
+        - ping -c 4 8.8.8.8
+    - DNS 포함 인터넷 확인
+        - ping -c 4 google.com
+    - 경로 추적
+        - traceroute 8.8.8.8
+---
+### dns
+- dns
+    - DNS 설정 확인
+        - cat /etc/resolv.conf
+    - systemd DNS 상태
+        - resolvectl status
+    - DNS 조회
+        - nslookup google.com
+        - dig google.com
+---
+### ssh
+- ssh
+    - SSH 서비스 상태
+        - sudo systemctl status ssh
+        - sudo systemctl is-active ssh
+        - sudo systemctl is-enabled ssh
+    - SSH 22번 포트 확인
+        - sudo ss -lntp | grep ':22'
+    - SSH 전체 설정 확인
+        - sudo sshd -T
+    - SSH 설정 문법 검사
+        - sudo sshd -t
+    - SSH 로그
+        - sudo journalctl -u ssh -n 100 --no-pager
+    - 실시간 SSH 로그
+        - sudo journalctl -u ssh -f
+---
+### port
+- port
+    - 현재 LISTEN 포트
+        - sudo ss -lntp
+    - 특정 포트
+        - sudo ss -lntp | grep ':22'
+        - sudo ss -lntp | grep ':80'
+        - sudo ss -lntp | grep ':443'
+---
+### firewall
+- firewall
+    - UFW 상태
+        - sudo ufw status verbose
+    - iptables
+        - sudo iptables -L -n -v
+    - nftables
+        - sudo nft list ruleset
+---
+### system
+- system
+    - Ubuntu 버전
+        - lsb_release -a
+        - cat /etc/os-release
+    - 커널 버전
+        - uname -a
+    - 호스트 정보
+        - hostnamectl
+    - 부팅 / 가동 시간
+        - uptime
+    - 실패한 서비스
+        - systemctl --failed
+    - 최근 부팅 로그
+        - journalctl -b -p warning
+    - 커널 / 하드웨어 로그
+        - dmesg -T
+---
+### docker
+- docker
+    - Docker 상태
+        - systemctl status docker
+    - 실행 컨테이너
+        - docker ps
+    - 전체 컨테이너
+        - docker ps -a
+    - Docker 네트워크
+        - docker network ls
+---
+### tailscale
+- tailscale
+    - 상태
+        - tailscale status
+    - Tailscale IP
+        - tailscale ip
+    - 서비스 상태
+        - systemctl status tailscaled

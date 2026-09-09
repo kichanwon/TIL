@@ -1,0 +1,7 @@
+Euclidean geometry is actually a subset of what is known as projective geometry. In fact, there are two geometries between them: similarity and a ne. To see the relationships between these di erent geometries, consult Figure 1. Projective geometry models well the imaging process of a camera because it allows a much larger class of transformations than just translations and rotations, a class which includes perspective projections. Of course, the drawback is that fewer measures are preserved | certainly not lengths, angles, or parallelism. Projective transformations preserve type (that is, points remain points and lines remain lines), incidence (that is, whether a point lies on a line), and a measure known as the cross ratio, which will be described in section 2.4.
+
+유클리드 기하학은 사실 사영기하학이라고 알려진 기하학의 한 부분집합이다. 실제로 유클리드 기하학과 사영기하학 사이에는 두 가지 기하학, 즉 닮음기하학과 아핀기하학이 존재한다. 이러한 서로 다른 기하학들 사이의 관계를 보려면 그림 1을 참고하라.
+
+사영기하학은 카메라의 영상 형성 과정을 잘 모델링한다. 그 이유는 사영기하학이 단순한 평행이동과 회전보다 훨씬 더 넓은 종류의 변환을 허용하며, 이 변환의 범주 안에 원근 투영이 포함되기 때문이다. 물론 그 단점은 보존되는 측정량이 더 적다는 점이다. 즉, 길이, 각도, 평행성은 확실히 보존되지 않는다.
+
+사영변환은 유형, 즉 점은 점으로 남고 직선은 직선으로 남는다는 성질을 보존한다. 또한 결합관계, 즉 한 점이 어떤 직선 위에 놓여 있는지 여부를 보존한다. 그리고 2.4절에서 설명할 교차비라는 측정량도 보존한다.
