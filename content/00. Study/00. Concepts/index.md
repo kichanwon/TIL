@@ -1,5 +1,5 @@
 ---
-title: Concepts
+title: 00. Concepts
 description: 기술을 이해하기 위한 개념, 용어와 구성요소
 ---
 
