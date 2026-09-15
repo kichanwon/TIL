@@ -1,3 +1,4 @@
+# 정리 필요
 Train/Validation/Test 분할로 확인하는 것은 엄밀히 말해
 
 > "현재 확보한 데이터가 미래 실제 환경과 같은 분포에서 생성된다는 가정 아래, 모델이 보지 않은 샘플에도 잘 동작할 가능성"
@@ -470,3 +471,43 @@ Ptest≈Pdeployment\boxed{ P_{test}\approx P_{deployment} }
 이다.
 
 이 관점을 잡으면 왜 최근 ML 연구에서 단순히 `random train/test split`뿐 아니라 **external validation, domain generalization, OOD evaluation, temporal split, geographic split, deployment monitoring**을 중요하게 보는지도 자연스럽게 연결된다.
+
+---
+# 불렛 요약 
+- **일반화를 완전히 보장하지 못하는 이유**
+    - Train/Validation/Test 성능은 결국 **현재 보유한 표본 데이터**를 기반으로 측정한 결과임
+    - 실제 환경의 전체 분포 PrealP_{\text{real}}는 알 수 없기 때문에 Test 성능만으로 실제 성능을 직접 증명할 수 없음
+    - 실제 환경에서 지역, 시간, 센서, 조명 등이 달라지면
+        
+        Ptrain≠PrealP_{\text{train}} \neq P_{\text{real}}
+        
+        인 **distribution shift**가 발생할 수 있음
+        
+    - 따라서 높은 Test 성능은 **현재 Test 분포와 유사한 데이터에 대한 일반화 성능**을 의미할 뿐, 모든 real-world 상황을 보장하지는 못함
+- **i.i.d.를 가정하면 수학적 일반화 보장 가능**
+    - Statistical Learning Theory에서는 학습 데이터가 **고정된 하나의 분포 PP에서 독립적·동일하게 추출된 i.i.d. 표본**이라고 가정함
+    - 미래의 실제 데이터도 동일한 분포
+        
+        Dfuture∼PD_{\text{future}} \sim P
+        
+        에서 나온다고 가정하면 empirical risk와 true risk의 관계를 수학적으로 분석할 수 있음
+        
+    - Hypothesis class의 복잡도가 적절히 제한되고 표본 수가 충분하면
+        
+        Remp(f)≈R(f)R_{\text{emp}}(f) \approx R(f)
+        
+        가 함수 집합 전체에서 성립하는 **uniform convergence**를 보장할 수 있음
+        
+    - 이때
+        
+        R(f)≤Remp(f)+complexity term+confidence termR(f) \le R_{\text{emp}}(f) + \text{complexity term} + \text{confidence term}
+        
+        형태로 **높은 확률 1−δ1-\delta** 에서 true risk의 상한을 제시할 수 있음
+        
+- **핵심 정리**
+    - 현실 전체에 대한 절대적 일반화 보장은 불가능
+    - 다만
+        
+        i.i.d. 가정+동일한 미래 분포+모델 복잡도 제어+충분한 표본\boxed{ \text{i.i.d. 가정} + \text{동일한 미래 분포} + \text{모델 복잡도 제어} + \text{충분한 표본} }
+        
+        가 성립하면 **확률적으로 일반화 성능을 수학적으로 보장할 수 있음**
