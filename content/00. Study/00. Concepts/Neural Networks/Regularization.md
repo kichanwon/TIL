@@ -1,0 +1,60 @@
+- **1단계. OLS가 무엇을 계산하는가**
+    - 목표: 관측값과 예측값의 제곱오차 최소화
+    - 핵심식: min⁡β∥y−Xβ∥2\min_\beta \|y-X\beta\|^2
+    - 이해 포인트: 회귀계수, 잔차, 정규방정식
+    - 연결 논문: **Frisch & Waugh (1933)**
+        - 다중회귀에서 각 계수가 무엇을 의미하는지 이해
+        - 부분회귀, 통제변수, 잔차화 개념
+- **2단계. OLS를 기하학적으로 이해**
+    - 목표: yy를 XX가 만드는 공간에 투영
+    - 핵심식: y^=Hy\hat y = Hy
+    - 핵심 개념: column space, orthogonality, projection
+    - 연결 논문: **Frisch & Waugh (1933)**
+        - 잔차와 설명변수의 직교 관계
+        - 다중회귀를 투영 관점에서 해석
+- **3단계. OLS가 왜 좋은 추정량인가**
+    - 목표: 최소제곱 해와 통계적 최적성을 구분
+    - 핵심 개념: unbiasedness, variance, BLUE
+    - 연결 논문: **Aitken (1935)**
+        - Gauss–Markov 관점
+        - 어떤 조건에서 OLS가 Best Linear Unbiased Estimator인지 이해
+- **4단계. OLS 결과를 그대로 믿으면 왜 위험한가**
+    - 목표: 좋은 회귀계수와 좋은 모델을 구분
+    - 핵심 개념: 비선형성, 이상치, 데이터 구조
+    - 연결 논문: **Anscombe (1973)**
+        - 같은 회귀계수와 R2R^2라도 데이터 형태는 완전히 다를 수 있음
+        - 시각화와 잔차 분석의 중요성
+- **5단계. 어떤 관측치가 OLS를 흔드는가**
+    - 목표: 개별 데이터의 영향력 분석
+    - 핵심 개념: leverage, influential observation, hat matrix
+    - 연결 논문: **Cook (1977)**
+        - Cook's Distance
+        - 특정 관측치 하나가 β^\hat\beta를 얼마나 바꾸는지 분석
+- **6단계. OLS 계수와 통계적 추론을 분리**
+    - 목표: 계수 추정과 표준오차 추정을 구분
+    - 핵심 개념: heteroskedasticity, robust standard error
+    - 연결 논문: **White (1980)**
+        - 이분산성이 있을 때 기존 표준오차의 문제
+        - robust covariance estimator
+- **7단계. 회귀계수 해석의 한계 이해**
+    - 목표: 회귀관계와 인과관계를 구분
+    - 핵심 개념: model specification, causal interpretation, data generating process
+    - 연결 논문: **Freedman (1991)**
+        - 회귀모형만으로 인과관계를 주장하는 것의 한계
+        - 연구설계와 데이터 생성 과정의 중요성
+- **8단계. OLS의 한계에서 정규화로 이동**
+    - 목표: OLS의 분산 문제와 다중공선성 이해
+    - 핵심 개념: bias-variance trade-off, shrinkage
+    - 연결 논문: **Hoerl & Kennard (1970)**
+        - Ridge Regression
+        - 약간의 bias를 허용해 variance와 MSE를 줄이는 아이디어
+- **9단계. 변수 선택까지 포함한 정규화**
+    - 목표: 계수 축소와 변수 선택 결합
+    - 연결 논문: **Tibshirani (1996)**
+        - Lasso
+        - L1L_1 penalty를 통한 sparse solution
+- **10단계. Ridge와 Lasso의 절충**
+    - 목표: 상관된 변수와 sparsity 문제를 함께 처리
+    - 연결 논문: **Zou & Hastie (2005)**
+        - Elastic Net
+        - L1+L2L_1 + L_2 정규화
