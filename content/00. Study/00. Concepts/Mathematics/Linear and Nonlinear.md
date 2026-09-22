@@ -1,8 +1,8 @@
 # Linear and Nonlinear
 
 ## Definition
-
-선형(Linear) 관계는 덧셈과 스칼라 곱의 구조를 보존하는 관계이고, 비선형(Nonlinear) 관계는 이러한 구조만으로 표현되지 않는 관계다.
+선형(Linear) 관계는 덧셈과 스칼라 곱의 구조를 보존하는 관계
+비선형(Nonlinear) 관계는 이러한 구조만으로 표현되지 않는 관계
 
 ## Intuition
 
