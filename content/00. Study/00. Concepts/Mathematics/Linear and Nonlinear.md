@@ -1,25 +1,3 @@
-- 차원(Dimension)
-    - 입력 변수의 개수
-    - $x^2$: 1차원
-    - $x+y$: 2차원
-- 차수(Degree)
-    - 변수의 지수 기준
-    - $x^2$: 2차
-    - $x+y$: 1차
-- Linear(선형)
-    - 변수들이 1차로만 결합
-    - 예: $2x$, $x+y$, $2x+3y-z$
-- Nonlinear(비선형)
-    - 제곱, 변수 간 곱, 비선형 함수 등이 포함
-    - 예: $x^2$, $xy$, $sin x$
-- 중요
-    - 차원이 높다고 Nonlinear인 것은 아님
-    - $x+y+z$: 3차원이지만 Linear
-    - $x^2$: 1차원이지만 Nonlinear
-- Affine
-    - $Ax+b$
-    - $b=0$ 이면 Linear
-    - $Linear⊂Affine$
 # Linear and Nonlinear
 
 ## Definition
@@ -42,25 +20,33 @@
     - $x^2$: 2차
     - $x+y$: 1차
 - Linear transformation 조건
-
-f(x+y)=f(x)+f(y)f(x+y)=f(x)+f(y) f(cx)=cf(x)f(cx)=cf(x)
-
+$$f(x+y)=f(x)+f(y)$$$$f(cx)=cf(x)$$
 - 일반형
+$$f(x)=Ax$$
 
-f(x)=Axf(x)=Ax
-
-- f(x)=Ax+bf(x)=Ax+b는 b≠0b\neq0일 때 **Affine**
+- $f(x)=Ax+b$는 $b\neq0$일 때 **_Affine_**
 ## Example
-
 $y=2x+1$은 직선 관계이고, $y=x^2$는 입력에 따라 기울기가 달라지는 비선형 관계다.
 
 ## Related Concepts
-
+- Dimension
+    - 입력 변수의 개수
+- Degree
+    - 다항식의 차수
+- Nonlinear
+    - x2x^2, xyxy, sin⁡x\sin x 등
+- Affine
+    - Ax+b
 - [[Function]]
 - [[Linear Transformation]]
 - [[Matrix]]
 - [[Neural Networks/Multi-Layer Perceptron]]
 
 ## Applications in AI
-
-비선형 활성화 함수는 신경망이 단순한 선형 조합을 넘어 복잡한 결정 경계와 함수 관계를 학습하도록 한다.
+- Linear Regression
+	- $y=w^Tx+b$
+- Logistic Regression의 선형 결합 부분
+	- $z=w^Tx+b$
+- Neural Network의 Linear Layer
+	- $z=Wx+b$
+- 신경망에서는 Linear/Affine 변환 뒤에 ReLU, Sigmoid 같은 **_Nonlinear Activation_** 을 적용해 복잡한 결정 경계와 함수 관계를 학습함
