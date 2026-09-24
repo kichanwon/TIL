@@ -1,9 +1,8 @@
 # Linear and Nonlinear
-
 ## Definition
 - Linear(선형): 변수들이 1차 형태로 결합된 관계
 - 다항식 기준으로 차수가 2 이상이면 일반적으로 Nonlinear
-- 선형대수에서는 엄밀히 f(x)=Axf(x)=Ax 형태를 의미
+- 선형대수에서는 엄밀히 $f(x)=Ax$ 형태를 의미
 
 ## Intuition
 - 입력이 변하면 출력도 일정한 비율과 방향으로 변함
@@ -11,7 +10,7 @@
     - 1차원 입력: 직선
     - 2차원 이상: 평면 또는 초평면
 - 차원이 높아도 Linear일 수 있음
-    - x+y+zx+y+z: 3차원이지만 Linear
+    - $x+y+z$: 3차원이지만 Linear
 ## Mathematical Definition
 - 차원: 입력 변수의 개수
     - $x^2$: 1차원
@@ -20,7 +19,8 @@
     - $x^2$: 2차
     - $x+y$: 1차
 - Linear transformation 조건
-$$f(x+y)=f(x)+f(y)$$$$f(cx)=cf(x)$$
+$$f(x+y)=f(x)+f(y)$$
+$$f(cx)=cf(x)$$
 - 일반형
 $$f(x)=Ax$$
 
@@ -34,9 +34,9 @@ $y=2x+1$은 직선 관계이고, $y=x^2$는 입력에 따라 기울기가 달라
 - Degree
     - 다항식의 차수
 - Nonlinear
-    - x2x^2, xyxy, sin⁡x\sin x 등
+    - $x^2$, $xy$, $\sin x$ 등
 - Affine
-    - Ax+b
+    - $Ax+b$
 - [[Function]]
 - [[Linear Transformation]]
 - [[Matrix]]
