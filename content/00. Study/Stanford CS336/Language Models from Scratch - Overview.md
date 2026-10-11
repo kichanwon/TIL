@@ -1,5 +1,5 @@
 # Language Models from Scratch
-Problem: researchers are becoming **disconnected** from the underlying technology.
+Problem: researchers are becoming **disconnected** f rom the underlying technology.
 
 ## Building small language models might not be representative of large language models
 
@@ -47,3 +47,31 @@ data()
 alignment()
 
   
+    text("Credible open-weight models (weights + paper):")
+    text("- Meta's Llama models "), link(llama_2023), link(llama_2_2023), link(llama_3_2024)
+    text('- Mistral\'s models '), link(mistral_7b_2023), link(mixtral_2024)
+    text("- DeepSeek\'s models "), link(deepseek_67b_2024), link(deepseek_v2_2024), link(deepseek_v3_2024), link(deepseek_r1_2025), link(deepseek_v3_2_2025)
+    text("- Alibaba\'s Qwen models "), link(qwen_2_5_2024), link(qwen_3_2025)
+    text("- Moonshot's Kimi models "), link(kimi_1_5_2025), link(kimi_k2_5_2026)
+    text("- Z.ai's GLM models "), link(glm_4_5_2025), link(glm_5_2026)
+    text("- Minimax\'s models "), link(minimax_m2_5_2026)
+    text("- Xiaomi's MIMO models "), link(xiaomi_mimo_v2_2026)
+    text("These models are approaching closed models (GPT, Claude, Gemini, etc.).")
+
+    text("Open-source models (weights + paper + code + data):")
+    text("- AI2's Olmo models "), link(olmo_7b_2024), link(olmo_2_2025), link(olmo_3_2025)
+    text("- NVIDIA's Nemotron models "), link(nemotron_15b_2024), link(nemotron_3_2025)
+    text("- Marin's models (open development) "), link(marin_8b_2025), link(marin_32b_2025)
+
+    text("Openness is important for trust and innovation "), link("https://arxiv.org/abs/2403.07918")
+    text("Ideas from open models enable us to teach CS336.")
+
+    text("What is a language model?")
+    text("- 2018 (BERT): something you fine-tune")
+    text("- 2020 (GPT-3): something you prompt")
+    text("- 2022 (ChatGPT): something you talk to "), link(title="example conversation", url="https://huggingface.co/datasets/HuggingFaceTB/smoltalk/viewer/all/train?row=72&conversation-viewer=72")
+    text("- 2026 (agents): something that acts autonomously "), link(title="example trace", url="https://huggingface.co/datasets/nebius/SWE-rebench-openhands-trajectories/viewer/default/train?conversation-viewer=1")
+
+    text("The fundamentals are the same (attention, kernels, optimization).")
+    text("The specs are different (longer context, inference efficiency matters even more).")
+
