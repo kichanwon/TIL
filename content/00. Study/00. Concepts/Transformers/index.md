@@ -52,4 +52,4 @@ flowchart TD
 - [[Sampling]] — 확률분포를 기반으로 생성할 토큰 선택
 - [[Normalization]] — 신경망 내부 데이터 정규화
 - [[Matrix]] — Attention 및 선형 변환의 수학적 기반
-- [[Language Models from Scratch - Overview]] — 언어 모델 구현 및 학습
+- [[Language Models from Scratch ]] — 언어 모델 구현 및 학습
