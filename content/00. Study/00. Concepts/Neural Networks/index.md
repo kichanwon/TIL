@@ -24,5 +24,3 @@ description: 신경망의 기본 구조와 주요 계열
     - GAN
 - Spiking Neural Network
     - SNN
-
-
